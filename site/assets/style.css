@@ -39,3 +39,7 @@ p { margin-block: 0 var(--s2); }
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
 @media (min-width: 56rem) { .hero { grid-template-columns: 1.15fr 1fr; } .about { grid-template-columns: 1fr 2fr; } }
 @media (max-width: 25rem) { .wrap { width: calc(100% - var(--s4)); } .hero { padding-block: var(--s4); } .soon { padding: var(--s3); } }
+
+.languages { display: flex; align-items: center; gap: var(--s2); }
+.languages [aria-current="page"] { color: var(--signal); font-weight: bold; text-decoration-thickness: 2px; }
+html[lang="en"] h1 { font-size: clamp(2rem, 3.8vw, 3.6rem); }
