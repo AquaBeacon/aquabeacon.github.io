@@ -1,0 +1,19 @@
+:root {
+  --ocean: #071727;
+  --deep: #0b2335;
+  --signal: #20d9d2;
+  --ice: #eaf9ff;
+  --muted: #aec6d4;
+  --line: #315267;
+  --body: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  --display: "Trebuchet MS", "Yu Gothic", sans-serif;
+  --mono: Consolas, monospace;
+  --s1: .5rem;
+  --s2: 1rem;
+  --s3: 1.5rem;
+  --s4: 2rem;
+  --s6: 3rem;
+  --s8: 4rem;
+  --radius: .5rem;
+  --page: 76rem;
+}
