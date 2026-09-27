@@ -4,7 +4,7 @@
 
 **COMING SOON ...** — ソフトウェア・ハードウェア設計・詳細ドキュメントの公開を準備しています。
 
-- Website (公開予定): https://aquabeacon.github.io/
+- Website: https://aquabeacon.github.io/
 - Organization: https://github.com/AquaBeacon
 - 公開ファイル: `site/`
 - デザイン方針: [DESIGN.md](DESIGN.md)
