@@ -21,4 +21,8 @@ Python 3で `python -m http.server 8080 --bind 127.0.0.1 --directory site` を�
 
 ## Contributing / License
 
-文言や表示の改善はIssue・Pull Requestでご提案ください。ソースコードの公開と利用許諾は別です。ライセンスは現在選定中であり、決定まではOSSライセンスが付与されたものとして再利用しないでください。AquaBeacon本体は各公開リポジトリのライセンスに従います。
+文言や表示の改善はIssue・Pull Requestでご提案ください。自作部分はApache License 2.0です。第三者部分はTHIRD_PARTY.mdを参照してください。
+
+## 開発とライセンス
+
+[開発ガイド](DEVELOPMENT.md)にセットアップ・入口・確認方法をまとめています。自作部分は [Apache License 2.0](LICENSE)。[第三者素材・依存の扱い](THIRD_PARTY.md)も参照してください。

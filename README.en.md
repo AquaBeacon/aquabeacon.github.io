@@ -21,4 +21,4 @@ Repository: `AquaBeacon/aquabeacon.github.io`. Set Settings → Pages → Source
 
 ## Contributing / License
 
-Suggest improvements through issues or pull requests. Licensing is being selected. Publicly visible source has not yet been granted an open-source license. AquaBeacon components will follow the licenses in their respective repositories.
+Suggest improvements through issues or pull requests. Original project work is licensed under [Apache License 2.0](LICENSE). See [THIRD_PARTY.md](THIRD_PARTY.md) for third-party materials. AquaBeacon components follow the licenses in their respective repositories.
