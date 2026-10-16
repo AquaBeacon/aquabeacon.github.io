@@ -4,7 +4,7 @@
 
 A website introducing AquaBeacon, an open-source project in development for underwater positioning and mapping with light and sound.
 
-**COMING SOON ...** — Software, hardware designs, and technical documentation are being prepared for release.
+Software, hardware designs, and technical documentation are public. See the [17 repositories and development instructions](https://github.com/AquaBeacon/workspace-tools).
 
 - Website: https://aquabeacon.github.io/en/
 - Organization: https://github.com/AquaBeacon

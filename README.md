@@ -4,7 +4,7 @@
 
 光と音を組み合わせた水中位置推定・マッピングプロジェクトの紹介サイト。
 
-**COMING SOON ...** — ソフトウェア・ハードウェア設計・詳細ドキュメントの公開を準備しています。
+ソフトウェア・ハードウェア設計・ドキュメントを公開しています。[全17リポジトリと開発手順](https://github.com/AquaBeacon/workspace-tools)を参照してください。
 
 - Website: https://aquabeacon.github.io/
 - Organization: https://github.com/AquaBeacon
