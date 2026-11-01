@@ -4,6 +4,7 @@
 .page-intro { padding-block: var(--s6) var(--s4); max-width: 58rem; }
 .page-intro h1 { font-size: clamp(2rem, 5vw, 3.7rem); }
 .page-intro .intro { font-size: 1.08rem; }
+.map-page .page-intro { padding-block: var(--s3) var(--s2); }
 .breadcrumb { color: var(--muted); font-size: .9rem; margin: var(--s3) 0 0; }
 .section { padding-block: var(--s4); border-top: 1px solid var(--line); }
 .section > h2 { margin-bottom: var(--s3); }
@@ -48,6 +49,14 @@ td strong { color: var(--signal); }
 code { font-family: var(--mono); font-size: .9em; overflow-wrap: anywhere; }
 pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--deep); padding: var(--s3); }
 .map-stage { position: relative; margin-bottom: var(--s3); min-height: 20rem; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--deep); }
+.map-picker { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--s1) var(--s2); margin-bottom: var(--s2); }
+.map-picker select { width: 100%; min-width: 0; min-height: 48px; font: inherit; color: var(--ice); background: var(--deep); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s1); }
+.map-picker p { grid-column: 1 / -1; margin: 0; }
+.map-layers { display: flex; flex-wrap: wrap; gap: var(--s2); border: 0; padding: 0; margin: 0 0 var(--s2); }
+.map-layers legend { font-size: .9rem; color: var(--muted); padding: 0; }
+.map-layers label { display: inline-flex; align-items: center; gap: var(--s1); min-height: 44px; cursor: pointer; }
+.map-layers input { width: 20px; height: 20px; accent-color: var(--signal); }
+select:focus-visible, input:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
 .map-placeholder { padding: clamp(1.5rem, 5vw, 4rem); max-width: 50rem; }
 .map-placeholder h2 { margin-block: var(--s2); }
 .map-placeholder p { color: var(--muted); }

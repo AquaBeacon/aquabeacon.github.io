@@ -60,7 +60,7 @@
     "maximumMatchingDeltaSeconds": 0.075
   },
   "accuracyValidated": false,
-  "mappingStatus": "pending",
+  "mappingStatus": "ready",
   "sourceRepository": "https://github.com/AquaBeacon/aquabeacon-analysis",
   "sourceDirectory": "results/20261101_nanyo_003/stationary_spectra/day2_101500",
   "analysisGitCommit": "62034301e45858e2b88aadcb4e271dc5eabd165c",

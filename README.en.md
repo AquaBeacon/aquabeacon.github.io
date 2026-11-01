@@ -13,7 +13,7 @@ Software, hardware designs, and technical documentation are public. See the [17 
 
 ## Research and poster link
 
-The [research hub](https://aquabeacon.github.io/research/), [methods](https://aquabeacon.github.io/research/methods/) and [static evaluation report](https://aquabeacon.github.io/research/reports/20261101-static/) are available in Japanese. The poster QR points to the stable [map page](https://aquabeacon.github.io/map/). Mapping is still being analyzed; verified point clouds can later be added at that same URL. The reported 0.1397 m is 3D RMSE about the series mean, not a ground-truth accuracy measurement. See [publication verification](PUBLICATION.md) and [map publishing instructions](MAP_PUBLISHING.md).
+The [research hub](https://aquabeacon.github.io/research/), [methods](https://aquabeacon.github.io/research/methods/) and [static evaluation report](https://aquabeacon.github.io/research/reports/20261101-static/) are available in Japanese. The poster QR points to the stable [map page](https://aquabeacon.github.io/map/). The viewer now supports five textured maps (82,500 points and 230 photo patches), orbit/zoom and common-ENU overlays. The [mapping report](https://aquabeacon.github.io/research/reports/20261102-mapping/) records all seven trials, including two exclusions. Scale and placement remain provisional; independent map accuracy and cross-day visual connectivity are unverified. Raw recordings and the geographic origin are not published. The reported 0.1397 m is 3D RMSE about the series mean, not a ground-truth accuracy measurement. See [publication verification](PUBLICATION.md) and [map publishing instructions](MAP_PUBLISHING.md).
 
 ## Preview
 

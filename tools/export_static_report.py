@@ -62,7 +62,7 @@ def export(analysis):
                         "lastOffsetSeconds": max(float(r["segment_time_s"]) for r in rows),
                         "trackedImages": 399, "totalImages": 600, "manualReinitializations": 3,
                         "validRangeRecords": 43, "totalRangeRecords": 43, "maximumMatchingDeltaSeconds": 0.075},
-        "accuracyValidated": False, "mappingStatus": "pending",
+        "accuracyValidated": False, "mappingStatus": "ready",
         "sourceRepository": "https://github.com/AquaBeacon/aquabeacon-analysis",
         "sourceDirectory": f"results/{EXPERIMENT}/stationary_spectra/{WINDOW}",
         "analysisGitCommit": manifest["git_commit"],

@@ -61,14 +61,32 @@ for path in SITE.rglob("*.json"):
     content = path.read_text(encoding="utf-8")
     assert "C:\\" not in content and "C:/Users" not in content and "/Users/" not in content
 manifest = json.loads((SITE / "map/manifest.json").read_text(encoding="utf-8"))
-assert manifest["schemaVersion"] == 1
-if manifest["status"] == "pending":
-    assert manifest["file"] is None and manifest["pointCount"] == 0
-else:
-    assert manifest["status"] == "ready"
-    data = (SITE / "map" / manifest["file"]).resolve()
+assert manifest["schemaVersion"] == 2 and manifest["status"] == "ready"
+totals = {key: 0 for key in ("pointCount", "photoCount", "triangleCount")}
+expected_assets = set()
+for item in manifest["datasets"]:
+    for key in totals:
+        totals[key] += item[key]
+    if item["availability"] == "unavailable":
+        assert item["file"] is None and item["pointCount"] == 0
+        continue
+    data = (SITE / "map" / item["file"]).resolve()
     assert data.is_relative_to((SITE / "map/data").resolve()) and data.is_file()
-    assert len(json.loads(data.read_text(encoding="utf-8"))["points"]) == manifest["pointCount"]
+    assert hashlib.sha256(data.read_bytes()).hexdigest() == item["metadataSHA256"]
+    metadata = json.loads(data.read_text(encoding="utf-8"))
+    expected_assets.add(data)
+    for relative, digest in [(metadata["binary"], metadata["binarySHA256"])] + [(s["image"], s["imageSHA256"]) for s in metadata["surfaces"]]:
+        asset = (SITE / "map" / relative).resolve()
+        assert asset.is_relative_to((SITE / "map/data").resolve()) and asset.is_file()
+        assert hashlib.sha256(asset.read_bytes()).hexdigest() == digest
+        expected_assets.add(asset)
+assert totals == manifest["totals"] == {"pointCount": 82500, "photoCount": 230, "triangleCount": 218697}
+assert expected_assets == {p.resolve() for p in (SITE / "map/data").rglob("*") if p.is_file()}, "Unexpected public map asset"
+mapping_summary = json.loads((SITE / "research/reports/20261102-mapping/summary.json").read_text(encoding="utf-8"))
+assert mapping_summary["totals"] == totals and mapping_summary["accuracyValidated"] is False
+assert mapping_summary["crossDayOverlap"]["acceptedConnectionCandidates"] == 0
+assert hashlib.sha256((SITE / "research/reports/20261102-mapping/mapping-overhead.png").read_bytes()).hexdigest() == mapping_summary["publicFigureSHA256"]
+assert summary["mappingStatus"] == "ready"
 for entry in ElementTree.parse(SITE / "sitemap.xml").iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc"):
     path = SITE / urlsplit(entry.text).path.lstrip("/") / "index.html"
     assert path.is_file(), f"Missing sitemap page: {entry.text}"

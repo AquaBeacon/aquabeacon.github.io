@@ -1,30 +1,45 @@
 # 水中マップの公開・更新
 
-ポスターのQRは **https://aquabeacon.github.io/map/** に固定する。解析中もこのURLを保ち、結果を追加してもQRを作り直さない。
+ポスターのQRは **https://aquabeacon.github.io/map/** に固定する。結果を更新してもQRを作り直さない。
 
-## 現在の状態
+## 公開する結果
 
-2026-11-02時点で `site/map/manifest.json` は `pending`。ユーザーから最終マッピング結果は解析中と指定されているため、既存の未確認断片や別実験の地図を公開していない。
+2026-11-02の解析 `20261102_nanyo_combined_000/mapping_replay` と、7区間の `mapping_selected/scene.json` を設計元にする。5区間で82,500点・230写真面・218,697三角形、残る2区間は地図未採用。全点・全三角形を残し、写真面を点群へ置き換えない。尺度・配置は暫定。日をまたぐ写真接続の採用候補は736組中0件で、共通ENUへのGNSS重ね合わせとして表示する。
 
-## 結果が完成したとき
+公開状態・確認したコミットは [PUBLICATION.md](PUBLICATION.md)。ローカル生成だけでは公開済みと扱わない。
 
-1. 解析側で実験ID、方式、元データ、尺度、座標系、品質と欠測を確認する。生動画・生ログ・個人情報・未公開の精密位置情報を公開用ファイルへ混ぜない。
-2. 公開用に選定した点群を `site/map/data/map-v1.json` などへ書き出す。最大100,000点、15 MB以下。全点を載せない場合は間引き条件と元の点数もレポートへ記録する。元の解析結果は変更しない。
-3. 次の形式を使う。x/y/zとRGBを各点へ持たせる。ビューアーはZを上とするので、別の軸規約から変換した場合は変換を記録する。ビューアー内部の中心化・表示倍率は表示のみで、メートル尺度や地理座標を確定する処理ではない。
+## 再取得する手順
 
-```json
-{"schemaVersion": 1, "points": [[0, 0, 0, 128, 180, 190], [1, 0, 1, 160, 200, 210]]}
+1. 解析側の数値検証・採用断片・方式・座標系・尺度・欠測を確認する。新しい実験を使う場合は、下の固定実験IDと期待値をレビューして更新する。
+2. `python -m pip install -r tools/requirements-authoring.txt` で任意のローカル制作依存を準備する。サイトのビルド・配信依存ではない。
+3. `python tools/export_mapping.py --analysis-root ../aquabeacon-analysis` を実行する。元sceneのSHA-256を結合manifestと照合し、数値検証の成功を確認してから書き出す。元解析ファイルは変更しない。
+4. `site/map/data/` の公開対象は、5区間のメタデータJSON・バイナリと230枚の派生JPEGのみ。`tools/verify_site.py` は余分なファイルも拒否する。元動画・生ログ・元manifest・航法時系列・地理原点はコピーしない。
+5. レポート、研究入口、手法、ポスター原稿を更新する。静止RMSEから地図の精度を推論しない。位置合わせ残差も独立真値の誤差ではない。
+6. 下記の検証を実行する。対象差分だけをレビューしてmainへpushし、Actions成功と本番URL・配信データのSHA-256を確認してから公開記録を更新する。
+
+## 形式と精度の扱い
+
+- `site/map/manifest.json` はschemaVersion 2。ready/unavailableの区間、グループ、点数・写真面数・三角形数、通信量、SHA-256を持つ。defaultSelectionは静止評価と同じ `20261101_nanyo_003`。
+- 区間JSONは `data/<実験ID>.json`。共通ENUメートルの座標はバイナリのlittle-endian float32、色はuint8、三角形の頂点番号はuint16。各ビューにbyteOffset/count/components/typeを記録し、4バイト境界へ揃える。点数・面数とバイナリ範囲を実行時にも検証する。
+- 座標のfloat32符号化差は最大0.000002845 m未満。これは表示形式の差で、測量精度ではない。中心化・画角・倍率の変更は表示だけに作用し、地図同士の相対配置を動かさない。
+- 画像は元出力の960×540 JPEGをバイト同一で保存。EXIFがあればexportを停止する。描画時だけ480×270に縮小し、スマホのGPUメモリを抑える。
+- 元scene・結合レポート・manifest・verificationのSHA-256と採用／除外理由は、公開用に選定した `research/reports/20261102-mapping/summary.json` へ残す。元ファイル全体の公開ではない。
+
+## ビューアー
+
+`map-data.js` は形式検証とカメラ変換、`map-renderer.js` は自作WebGL 1描画、`map-viewer.js` は読み込みとPointer Events操作。外部JS・CDN・アカウント不要。本文とレポートはJavaScriptなしでも読める。
+
+選択した区間だけ読み込み、初回の転送量は初期区間約2.7 MB、全区間約28.2 MB。4並列で写真を読み込み、切替時には古い通信とGPU資源を解放する。JSON・バイナリ・全JPEGをSHA-256で照合。読み込み失敗・WebGL非対応・描画中断をメッセージにし、未採用区間には地図を表示しない。
+
+操作：1本指／マウスドラッグで回転、ピンチ／ホイールで拡大縮小、2本指／Shift＋ドラッグで移動。写真面・点群の切替、撮影方向／全体／上面、キーボード、対応ブラウザの全画面。航跡と同期動画の再生・PNG保存・GLBダウンロードはこの公開ページには含めない。
+
+## 検証
+
+```sh
+python tools/verify_site.py
+node --test tests/map-data.test.mjs
+python tools/prepare_map_qa.py
+python -m http.server 8081 --bind 127.0.0.1 --directory .local/map-qa
 ```
 
-上の2点は形式説明用で実験結果ではない。公開データに使わない。
-
-4. `site/map/manifest.json` を更新する。`status` を `ready`、`file` を `data/map-v1.json` とし、実点数、実験が分かるtitle、description、coordinateSystem、scaleNoteを記載する。任意尺度なら任意尺度と明示する。fileは `data/` 内の英数字・ハイフン・下線のJSON名だけを許可し、外部URLを受け付けない。
-5. マップページのdescription・OGP・JavaScriptなしの説明、研究入口・レポート一覧の解析中表示を更新する。更新日とマッピングの評価レポートを追記する。静止RMSEから地図の精度を推論しない。
-6. `python tools/verify_site.py`、`node --test tests/map-data.test.mjs` を実行。375pxと1280pxで回転、拡大縮小、初期化、上面表示、キーボード、タッチ、読み込み失敗を確認する。
-7. 対象差分だけをレビューし、siteリポジトリのmainへpush。GitHub Actions成功と本番URLを確認してから公開済みと記録する。
-
-## 実装
-
-`site/assets/map-data.js` はmanifestと点群の検証・投影、`map-viewer.js` はCanvas 2Dでの点群描画とPointer Eventsによる操作。実装はApache-2.0の自作コード。外部JS、CDN、アカウント、アップロード先は不要。本文と評価条件はJavaScriptなしで読める。
-
-対応：点群の回転、ズーム、移動、初期化、上面、ブラウザ対応時の全画面。テクスチャ付きメッシュ・動画・巨大点群のストリーミングは未対応。結果がそれらの形式の場合はこの点群仕様へ無断で変換せず、目的に合わせてビューアーを拡張する。
+公開データ自体を使って375px・1280pxで確認する。`.local/map-qa/map/` のテストUIで全7区間・3グループ、切替中断、合成タッチ、描画中断を検証できる。実ドラッグ・ボタン・キーボードも確認する。`mobile.html` は375px iframe、`failure/` は存在しないデータによる失敗・再試行の検証。これらの補助UIはGit・配信対象外。スマホ実機と印刷したQRの読み取りは別途確認する。

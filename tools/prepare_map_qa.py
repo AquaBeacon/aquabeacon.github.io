@@ -1,29 +1,14 @@
-"""Create an ignored local-only browser fixture. Never publishes synthetic data."""
+"""Create an ignored QA copy of the actual public data, with local-only test UI."""
 import json
-import math
 import shutil
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 output = root / ".local/map-qa"
 shutil.copytree(root / "site", output, dirs_exist_ok=True)
-points = []
-for i in range(100):
-    angle = i / 100 * math.tau
-    for j in range(20):
-        h = j / 20
-        points.append([math.cos(angle), math.sin(angle) * (0.7 + h * 0.2), h - 0.5, 32 + j * 8, 210, 200])
-data = output / "map/data/qa-only.json"
-data.parent.mkdir(parents=True, exist_ok=True)
-data.write_text(json.dumps({"schemaVersion": 1, "points": points}), encoding="utf-8")
-(output / "map/manifest.json").write_text(json.dumps({
-    "schemaVersion": 1, "status": "ready", "file": "data/qa-only.json", "pointCount": len(points),
-    "title": "検証用の合成点群（実験結果ではありません）", "coordinateSystem": "local Z-up",
-    "scaleNote": "任意尺度。ローカル動作確認専用。", "description": "SYNTHETIC QA ONLY — NOT A RESEARCH RESULT"
-}, ensure_ascii=False), encoding="utf-8")
 # Pointer Events test harness is intentionally outside site/ and uses the real viewer.
 original = (output / "map/index.html").read_text(encoding="utf-8")
-harness = '''<section class="wrap section"><h2>ローカルQA</h2><button id="test-gestures">合成タッチ操作を検証</button><p id="gesture-result" role="status"></p></section>
+harness = '''<section class="wrap section"><h2>ローカルQA</h2><button id="test-gestures">合成タッチ操作を検証</button><p id="gesture-result" role="status"></p><button id="test-selections">全区間・連続切替を検証</button><p id="selection-result" role="status"></p><button id="test-context">描画中断を検証</button></section>
 <script type="module">
 const canvas = document.querySelector('#map-canvas');
 document.querySelector('#test-gestures').addEventListener('click', async () => {
@@ -46,11 +31,34 @@ document.querySelector('#test-gestures').addEventListener('click', async () => {
  canvas.setPointerCapture=capture;
  result.textContent=(orbit&&pinch&&cancel?'PASS':'FAIL')+': touch orbit='+orbit+', pinch='+pinch+', cancel='+cancel;
 });
+document.querySelector('#test-selections').addEventListener('click', async () => {
+ const select=document.querySelector('#map-selection'), status=document.querySelector('#map-status'), result=document.querySelector('#selection-result');
+ const settle=()=>new Promise(resolve=>requestAnimationFrame(resolve));
+ const choose=value=>{select.value=value;select.dispatchEvent(new Event('change'));};
+ const ready=async()=>{const end=Date.now()+20000;while(Date.now()<end){if(!status.textContent.includes('読み込み中'))return;await settle();}throw Error('Timed out');};
+ const results=[];
+ try {
+  for(const option of [...select.options]){
+   choose(option.value); await ready();
+   const expected=option.textContent.includes('未採用')?canvas.hidden:!canvas.hidden&&status.textContent.includes('写真面');
+   results.push(option.textContent+': '+(expected?'PASS':'FAIL')+' / '+status.textContent);result.textContent=results.join(' | ');
+   if(!expected)throw Error('Unexpected selection state');
+  }
+  choose('combined');choose('20261101_nanyo_003');await ready();
+  const race=status.textContent.includes('11/1 区間3')&&status.textContent.includes('25 写真面');
+  result.textContent=(race?'PASS':'FAIL')+': all 10 selections; rapid selection cancellation='+race+' | '+results.join(' | ');
+ }catch(error){result.textContent='FAIL: '+error.message+' | '+results.join(' | ');}
+});
+document.querySelector('#test-context').addEventListener('click',()=>canvas.getContext('webgl').getExtension('WEBGL_lose_context').loseContext());
 </script>'''
 (output / "map/index.html").write_text(original.replace('</body>', harness + '</body>'), encoding="utf-8")
 preview = output / "poster"
 preview.mkdir(exist_ok=True)
 shutil.copyfile(root / "poster/2026-11/map-qr.png", preview / "map-qr.png")
 shutil.copyfile(root / "poster/2026-11/panel-preview.html", preview / "index.html")
-(output / "mobile.html").write_text('''<!doctype html><html lang="ja"><meta charset="utf-8"><title>375px viewer QA</title><style>body{background:#ddd;font:16px sans-serif}iframe{width:375px;height:812px;border:0}</style><h1>375px・合成点群のローカル検証</h1><iframe title="375px マップ" src="map/"></iframe></html>''', encoding="utf-8")
+(output / "mobile.html").write_text('''<!doctype html><html lang="ja"><meta charset="utf-8"><title>375px viewer QA</title><style>body{background:#ddd;font:16px sans-serif}iframe{width:375px;height:812px;border:0}</style><h1>375px・公開実データのローカル検証</h1><iframe title="375px マップ" src="map/"></iframe></html>''', encoding="utf-8")
+failure = output / "failure"
+failure.mkdir(exist_ok=True)
+shutil.copyfile(output / "map/manifest.json", failure / "manifest.json")
+shutil.copyfile(root / "site/map/index.html", failure / "index.html")
 print(f"Local QA only: {output}")

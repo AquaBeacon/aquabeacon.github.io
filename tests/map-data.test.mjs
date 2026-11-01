@@ -1,30 +1,68 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateManifest, preparePoints, projectPoint } from '../site/assets/map-data.js';
-
-const ready = { schemaVersion: 1, status: 'ready', file: 'data/map-v1.json', title: 'test',
-  coordinateSystem: 'local Z-up', scaleNote: 'arbitrary', description: 'test only', pointCount: 2 };
-test('pending state needs no invented map', () => assert.equal(validateManifest({ schemaVersion: 1, status: 'pending' }).status, 'pending'));
-test('ready map requires local data and scientific context', () => {
-  assert.equal(validateManifest(ready).file, 'data/map-v1.json');
-  for (const file of ['https://example.com/data.json', '../data.json', '/data.json', 'data/../../secret.json']) {
-    assert.throws(() => validateManifest({ ...ready, file }));
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { validateManifest, prepareGeometry, fitView, sourceView, localPath } from '../site/assets/map-data.js';
+const root = new URL('../site/map/', import.meta.url);
+const catalog = validateManifest(JSON.parse(await readFile(new URL('manifest.json', root), 'utf8')));
+const scenes = [];
+const digest = data => createHash('sha256').update(data).digest('hex');
+const arrayBuffer = bytes => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+for (const item of catalog.datasets.filter(d => d.availability === 'ready')) {
+  const raw = await readFile(new URL(item.file, root));
+  const meta = JSON.parse(raw);
+  const binary = await readFile(new URL(meta.binary, root));
+  scenes.push({ item, meta, binary: arrayBuffer(binary), prepared: prepareGeometry(meta, arrayBuffer(binary), item) });
+  test(`${item.id}: geometry and all photo hashes match the catalog`, async () => {
+    assert.equal(digest(raw), item.metadataSHA256);
+    assert.equal(digest(binary), meta.binarySHA256);
+    assert.equal(binary.length, meta.binaryByteLength);
+    let transfer = raw.length + binary.length;
+    for (const s of meta.surfaces) {
+      const bytes = await readFile(new URL(s.image, root));
+      assert.equal(digest(bytes), s.imageSHA256); transfer += bytes.length;
+    }
+    assert.equal(transfer, item.transferBytes);
+  });
+}
+test('catalog retains all five accepted maps and two exclusions', () => {
+  assert.deepEqual(catalog.totals, { pointCount: 82500, photoCount: 230, triangleCount: 218697 });
+  assert.equal(scenes.length, 5);
+  assert.equal(catalog.datasets.filter(d => d.availability === 'unavailable').length, 2);
+  for (const mutate of [c => c.groups[0].ids.push('absent'), c => c.totals.pointCount++, c => c.datasets[0].file='../private.json', c => c.datasets[5].pointCount=1]) {
+    const copy = structuredClone(catalog); mutate(copy); assert.throws(() => validateManifest(copy));
   }
-  assert.throws(() => validateManifest({ ...ready, scaleNote: '' }));
-  assert.throws(() => validateManifest({ ...ready, pointCount: 100001 }));
 });
-test('display centering preserves relative point distances', () => {
-  const p = preparePoints({ schemaVersion: 1, points: [[100, 200, -5, 0, 100, 255], [110, 200, -5, 255, 0, 0]] }, 2);
-  assert.deepEqual(p.map(x => x.slice(0, 3)), [[-0.5, 0, 0], [0.5, 0, 0]]);
+test('only allow local, selected asset paths', () => {
+  assert.equal(localPath('data/images/trial-01.jpg', 'jpg'), 'data/images/trial-01.jpg');
+  for (const path of ['https://example.com/map.bin', '../map.bin', 'data/../map.bin', '/data/map.bin', 'data/map.bin?x=1']) assert.throws(() => localPath(path, 'bin'));
 });
-test('invalid and mislabeled point data is rejected', () => {
-  for (const points of [[], [[0, 0, 0, 1, 2, 3]], [[0, 0, NaN, 1, 2, 3], [1, 0, 0, 1, 2, 3]], [[0, 0, 0, 256, 2, 3], [1, 0, 0, 1, 2, 3]]]) {
-    assert.throws(() => preparePoints({ schemaVersion: 1, points }, 2));
+test('reject malformed binary views, non-finite positions and invalid triangles', () => {
+  const { meta, item, binary } = scenes[0];
+  for (const mutate of [m => m.id='other', m => m.points.byteOffset=1, m => m.colors.byteOffset=0, m => m.surfaces[0].uv.count-=2, m => m.defaultSurface=999, m => m.triangleCount++]) {
+    const copy=structuredClone(meta); mutate(copy); assert.throws(() => prepareGeometry(copy,binary,item));
   }
+  const invalidFloat=binary.slice(0); new DataView(invalidFloat).setFloat32(meta.points.byteOffset,NaN,true);
+  assert.throws(() => prepareGeometry(meta,invalidFloat,item));
+  const invalidIndex=binary.slice(0); new DataView(invalidIndex).setUint16(meta.surfaces[0].indices.byteOffset,65535,true);
+  assert.throws(() => prepareGeometry(meta,invalidIndex,item));
 });
-test('orbit changes the view but preserves 3D distance', () => {
-  const p = [0.3, 0.7, -0.5], rotated = projectPoint(p, 0.8, 0.4);
-  assert.ok(Math.abs(Math.hypot(...p) - Math.hypot(...rotated)) < 1e-12);
-  const overhead = projectPoint([1, 2, 3], 0, Math.PI / 2);
-  assert.ok(Math.abs(overhead[0] - 1) < 1e-12 && Math.abs(overhead[1] + 2) < 1e-12);
+test('common overview centers without changing relative metric placement', () => {
+  const view = fitView(scenes.map(s=>s.prepared));
+  for (const {prepared} of scenes) {
+    for (const bound of [prepared.bounds.min,prepared.bounds.max]) assert.ok(Math.hypot(...bound.map((v,i)=>v-view.center[i]))<=view.radius+1e-8);
+  }
+  const point = [10,20,30], other=[11,22,33];
+  const transform=p=>[0,1,2].map(j=>p.reduce((sum,v,k)=>sum+(v-view.center[k])/view.radius*view.basis[k*3+j],0));
+  const a=transform(point),b=transform(other);
+  assert.ok(Math.abs(Math.hypot(...a.map((v,i)=>v-b[i]))*view.radius-Math.sqrt(14))<1e-10);
+});
+test('source camera is at the origin looking forward after display transform', () => {
+  for (const {prepared} of scenes) {
+    const view=sourceView(prepared), s=prepared.surfaces[prepared.defaultSurface];
+    const transformed=[0,1,2].map(j=>s.camera.reduce((sum,v,k)=>sum+(v-view.center[k])/view.radius*view.basis[k*3+j],0));
+    assert.ok(Math.abs(transformed[0])<1e-5 && Math.abs(transformed[1])<1e-5);
+    assert.ok(Math.abs(transformed[2]-view.distance)<1e-5);
+    assert.ok(view.distance>0);
+  }
 });
