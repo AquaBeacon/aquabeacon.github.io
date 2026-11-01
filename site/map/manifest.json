@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "status": "pending",
+  "title": "水中マップ",
+  "updated": "2026-11-02",
+  "description": "マッピング結果は現在解析中です。確認が完了した結果をこのページに追加します。",
+  "file": null,
+  "pointCount": 0,
+  "coordinateSystem": null,
+  "scaleNote": "地図の尺度・座標系・評価条件は、結果の公開時に明記します。"
+}

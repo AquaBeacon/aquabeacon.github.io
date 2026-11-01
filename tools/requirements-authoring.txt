@@ -1,0 +1,2 @@
+# Optional local QR generation only. No runtime or site build dependencies.
+qrcode==8.2

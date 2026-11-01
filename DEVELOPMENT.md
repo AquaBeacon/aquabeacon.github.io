@@ -11,6 +11,17 @@ Python 3で python -m http.server 8080 --bind 127.0.0.1 --directory site を実�
 
 ## 検証
 
+```sh
+python tools/verify_site.py
+node --test tests/map-data.test.mjs
+```
+
+375px/1280pxで本文・表・リンク・キーボードフォーカス・横溢れを確認します。地図は解析中表示と、公開用manifest形式の合成点群を使用した回転・拡大・初期化・上面表示・タッチ操作を別々に検証します。合成点群を公開サイトへ含めません。
+
+数値と図を再取得する場合は `python tools/export_static_report.py --analysis-root ../aquabeacon-analysis`。指定された単一区間の観測からRMSEを再計算して既存manifestと照合し、公開用の要約と既存PNG/SVGだけをコピーします。生データや元manifestの絶対パスは配信しません。
+
+QRの再生成は `python -m pip install -r tools/requirements-authoring.txt`、`python tools/make_poster_qr.py`。これは任意のローカル制作工程で、サイト配信・ビルドの依存ではありません。
+
 ビルド・実機・外部ツールの確認手順はREADMEを参照してください。移行検証だけで実機動作・製造可能性を合格扱いにしません。
 
 ## データと関連リポジトリ

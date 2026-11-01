@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "publishedDate": "2026-11-02",
+  "experimentId": "20261101_nanyo_003",
+  "windowId": "day2_101500",
+  "start": "2026-11-01T10:15:00+09:00",
+  "durationSeconds": 60,
+  "interval": "[start, end)",
+  "metricDefinition": "RMSE about each series arithmetic mean; denominator N; no smoothing or detrending; not ground-truth error",
+  "coordinateSystem": "True ENU relative vector from parent body origin to child body origin",
+  "metrics": {
+    "corrected": {
+      "n": 32,
+      "axis_rmse_m": [
+        0.09661458556668875,
+        0.09894446963449388,
+        0.019539005763655783
+      ],
+      "horizontal_rmse_m": 0.1382909476989521,
+      "rmse_3d_m": 0.13966445131709956
+    },
+    "fixed_parent": {
+      "n": 32,
+      "axis_rmse_m": [
+        1.2720776139663452,
+        0.7041275898706905,
+        0.03875328964342547
+      ],
+      "horizontal_rmse_m": 1.4539522408839354,
+      "rmse_3d_m": 1.4544686095717585
+    },
+    "fixed_both": {
+      "n": 32,
+      "axis_rmse_m": [
+        1.272070344657547,
+        0.7041926745135357,
+        0.0387490674453375
+      ],
+      "horizontal_rmse_m": 1.4539774016798532,
+      "rmse_3d_m": 1.4544936489457698
+    }
+  },
+  "reductionPercent": 90.39756166630359,
+  "depth": {
+    "meanRoundedM": 16.44,
+    "samples": 60,
+    "minimumRoundedM": 16.433,
+    "maximumRoundedM": 16.457,
+    "definition": "Uncalibrated relative pressure depth; initial 180 seconds surface-pressure proxy; assumed density 1025 kg/m3; all finite samples in 60 seconds"
+  },
+  "observation": {
+    "matchedPositions": 32,
+    "firstOffsetSeconds": 14.104665994644165,
+    "lastOffsetSeconds": 58.10737895965576,
+    "trackedImages": 399,
+    "totalImages": 600,
+    "manualReinitializations": 3,
+    "validRangeRecords": 43,
+    "totalRangeRecords": 43,
+    "maximumMatchingDeltaSeconds": 0.075
+  },
+  "accuracyValidated": false,
+  "mappingStatus": "pending",
+  "sourceRepository": "https://github.com/AquaBeacon/aquabeacon-analysis",
+  "sourceDirectory": "results/20261101_nanyo_003/stationary_spectra/day2_101500",
+  "analysisGitCommit": "62034301e45858e2b88aadcb4e271dc5eabd165c",
+  "sourceSHA256": {
+    "report.md": "8bb7a0cc01aa8a17ef5c45fb412dabb44def9715db4ed10bd4a33e7a350211c1",
+    "manifest.json": "f8468d831b35d5594160f4c527b4073c0e8cdcc1951e6bb18c747bc344e3705e",
+    "matched_positions.csv": "ed44a249c6976a5147e88521d45c603d9b50f04c8a82e31903d6145e9c43238b",
+    "pressure_depth_samples.csv": "cb77a262fc1a8929550a7bd9abd62903928c0f42d2d9c0db3d6e8d38ae3a1546",
+    "position_overhead.png": "153a42a8f24e416a90766c6fbf077009efda1c6069b47bc2bcd86b36283db082",
+    "position_overhead.svg": "39ba76e3ca9381932b0afeea91e8b688424773f5b1e2c3fe58ac608ae2a37660"
+  },
+  "analysisInputsSHA256": {
+    "results/20261101_nanyo_003/light_tracking/day2_101500/positions.csv": "1ba356d8d2a4507470aa583d873dcfbf427c49f24862715d22be0b3b2499b1cf",
+    "results/20261101_nanyo_003/light_tracking/day2_101500/manifest.json": "022008a5bf62330ad8d56b1d672459a9d1a9a0f2de2075d01f21d2ddc18b0d4c",
+    "results/20261101_nanyo_003/light_tracking/day2_101500/attitudes_10hz.csv": "f26ab3b31df7915a036a42b3c274ceda6d85ce38f6df74acc9a98663fc3bff4a",
+    "results/20261101_nanyo_003/evaluation/acoustic_depth.csv": "29b747439df9fd8cfbed8e229e927520737349a81275e51095c55efe3ad7cac8",
+    "results/20261101_nanyo_003/light_tracking/day2_101500/camera_relative_candidates.csv": "c7128b776d0b86aa94ceaf0317759b55a9c2169c88c04df0d94f31cd7712bd4c",
+    "calibration/20261029_parent_axis_011_axes.json": "f93f5109cd8fe49e839d7dc6b7f7ab3d8ae169634f5d3744f221e9491fb4525a",
+    "config/20261101_nanyo_000/stationary_spectra.json": "9ec3992c42eda523398a544834213c9aa94ab843e9fa0248083997ef1efcd1be",
+    "scripts/analyze_nanyo_stationary.py": "5bacfaeeaeb58fe7c4741c50a18a72f770b90f1061e2cb09b6c849c8c994526c",
+    "src/aquabeacon_analysis/stationary_spectra.py": "7b78a5a0fdbd3880f0d9666edc1bc53c0a85ac24118277d65b3cb8fa0c16a72b",
+    "src/aquabeacon_analysis/nanyo_position.py": "8e1a785cc938fefe85b8f29921e481f629333cf32528f3b8e98373ff38368e98",
+    "experiments/20261101_nanyo_003/experiment.json": "9b86be1937bd19baecac23924e6d069e2189d74fcd8a2e5829db4d7023317b04",
+    "results/20261101_nanyo_000/segmentation/selection.csv": "838d779c3fabfa74a64ec448c68dedf556e01f18c516d5c44e927c29b78dacff",
+    "results/20261101_nanyo_000/segmentation/manifest.json": "2f098675239156d5fc025c6c8544a15e7808b4f7355247f39d8e289d59cb3891"
+  },
+  "publicationScope": "Selected summary and derived figures only. No raw sensor logs, source videos or absolute GNSS positions."
+}

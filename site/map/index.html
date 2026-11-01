@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>水中マップ | AquaBeacon</title>
+  <meta name="description" content="AquaBeaconの水中マップと実験結果。マッピングは現在解析中です。静止評価の結果、手法、レポートを閲覧できます。">
+  <meta name="theme-color" content="#071727"><link rel="canonical" href="https://aquabeacon.github.io/map/">
+  <meta property="og:title" content="水中マップと実験結果 | AquaBeacon"><meta property="og:description" content="ポスターから、手法と実験結果へ。マッピング結果は現在解析中です。">
+  <meta property="og:type" content="website"><meta property="og:url" content="https://aquabeacon.github.io/map/">
+  <link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/research.css">
+  <script type="module" src="/assets/map-viewer.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="wrap"><a class="brand" href="/"><img src="/assets/icon.png" alt="" width="44" height="44">AquaBeacon</a><nav class="research-nav" aria-label="メインナビゲーション"><a href="/research/">研究・結果</a><a href="/research/methods/">手法</a><a href="/research/reports/">レポート</a><a href="/map/" aria-current="page">水中マップ</a></nav></header>
+<main id="main" class="wrap">
+  <div class="page-intro"><p class="eyebrow" lang="en">EXPLORE / UNDERWATER MAP</p><h1 id="map-title">水中を、手のひらで。</h1><p class="intro">ポスターをご覧いただきありがとうございます。ここから、水中マップ・実験結果・具体的な手法を閲覧できます。</p><p class="status" id="map-status" role="status">マッピング解析中 · 2026.11.02</p></div>
+  <section aria-label="水中マップビューアー">
+    <div class="map-stage" id="map-stage">
+      <div class="map-placeholder" id="map-placeholder"><span class="eyebrow" lang="en">ANALYSIS IN PROGRESS</span><h2>マップは現在、解析中です。</h2><p>確認が完了したマッピング結果を、このページに追加します。公開後は、スマートフォンでマップを回転・拡大してご覧いただけます。QRコードのリンク先は変わりません。</p><a class="button" href="/research/reports/20261101-static/">先に静止評価の結果を見る →</a></div>
+      <canvas class="map-canvas" id="map-canvas" width="800" height="600" tabindex="0" role="img" aria-label="操作できる水中マップ" aria-describedby="map-instruction map-detail" hidden>このブラウザではマップを描画できません。下のレポートをご覧ください。</canvas>
+      <div class="map-tools" id="map-tools" aria-label="マップ操作" hidden><button id="zoom-in" type="button" aria-label="マップを拡大">＋ 拡大</button><button id="zoom-out" type="button" aria-label="マップを縮小">− 縮小</button><button id="reset-view" type="button">初期表示</button><button id="top-view" type="button">上から見る</button><button id="fullscreen" type="button">全画面</button></div>
+    </div>
+    <p class="note" id="map-instruction" hidden>1本指のドラッグで回転、2本指で拡大・縮小と移動。PCはドラッグで回転、ホイールで拡大・縮小、Shift＋ドラッグで移動。キーボードは矢印で回転、＋／−で拡大・縮小、0で初期表示。</p>
+    <p class="note" id="map-detail">地図の尺度・座標系・評価条件は、結果の公開時に明記します。</p>
+    <noscript><p class="callout">マップの操作にはJavaScriptが必要です。研究結果・手法・レポートはJavaScriptなしでも閲覧できます。公開状況は<a href="manifest.json">マップの情報</a>で確認できます。</p></noscript>
+  </section>
+  <section class="section" aria-labelledby="result-heading"><div class="result-layout"><div><p class="eyebrow" lang="en">POSTER RESULT / 2026.11.01</p><h2 id="result-heading">深度約16 mの静止評価</h2><p class="metric">0.1397 <small>m</small></p><p class="metric-label">姿勢補正後の3D RMSE</p><p class="note">10:15〜10:16 JST／平均深度16.44 m／採用32点</p></div><div><p>同じ観測点に対する親機姿勢固定時の1.4545 mから、平均まわりの位置のばらつきが90.4%減少しました。</p><p class="callout">RMSEは各系列の区間平均まわりのばらつきです。独立した位置真値に対する誤差ではありません。深度は水圧から換算した未校正の相対深度です。</p><div class="button-row"><a class="button" href="/research/reports/20261101-static/">評価条件と結果を読む →</a><a class="button secondary" href="/research/methods/">どのように測るか →</a></div></div></div></section>
+  <section class="section" aria-labelledby="explore-heading"><h2 id="explore-heading">研究の続きを読む</h2><ul class="index-list"><li><a href="/research/">研究・結果の入口 →</a><p>得られた結果と、これから検証すること。</p></li><li><a href="/research/methods/">光・音・姿勢を組み合わせる手法 →</a><p>観測、時刻対応、位置推定、評価までの流れ。</p></li><li><a href="/research/reports/">レポート一覧 →</a><p>実験条件、数値、指標の定義と来歴。</p></li></ul></section>
+</main><footer class="wrap"><span>© 2026 AquaBeacon</span><a href="https://github.com/AquaBeacon">ソース・設計をGitHubで見る ↗</a><a href="/">ホーム</a></footer>
+</body></html>
