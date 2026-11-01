@@ -1,0 +1,2 @@
+# Preserve the selected research SVG byte-for-byte for its provenance hash.
+site/research/reports/20261101-static/position-overhead.svg -text -whitespace

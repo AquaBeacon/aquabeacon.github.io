@@ -52,4 +52,5 @@ preview = output / "poster"
 preview.mkdir(exist_ok=True)
 shutil.copyfile(root / "poster/2026-11/map-qr.png", preview / "map-qr.png")
 shutil.copyfile(root / "poster/2026-11/panel-preview.html", preview / "index.html")
+(output / "mobile.html").write_text('''<!doctype html><html lang="ja"><meta charset="utf-8"><title>375px viewer QA</title><style>body{background:#ddd;font:16px sans-serif}iframe{width:375px;height:812px;border:0}</style><h1>375px・合成点群のローカル検証</h1><iframe title="375px マップ" src="map/"></iframe></html>''', encoding="utf-8")
 print(f"Local QA only: {output}")
