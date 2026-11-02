@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "prepared_date": "2026-11-02",
+  "status": "draft_not_applied_to_canva_or_website",
+  "target_design_id": "DAHXkkUfU08",
+  "target_sections": [
+    "05 結果・評価",
+    "06 今後の展望"
+  ],
+  "metric": "子機CAD原点の絶対位置、各系列の区間平均まわりの3D RMSE。独立真値に対する誤差ではない。",
+  "sampling": "同じ採用shot、GNSSは有効な隣接観測間のみ線形補間（最大間隔1.5秒）。位置平滑化・外挿なし。",
+  "depth_definition": "水圧から求めた子機の60秒平均深度。海底深度ではない。",
+  "source": {
+    "repository": "AquaBeacon/aquabeacon-analysis",
+    "comparison_csv": "results/20261101_nanyo_000/stationary_gnss_comparison/comparison.csv",
+    "comparison_csv_sha256": "a4ffe5ae6edbbe3224ca92c8275e153fbca6a0803d41c6ea25d7e5ac0c7ce60e",
+    "manifest_sha256": "51cf389842ea6a0848080ce6f0bb028f2cf059a3c7b62cf7033ff4a72c9be10c",
+    "numeric_check_count": 19746,
+    "source_files_require_private_transfer": true
+  },
+  "poster_copy": {
+    "heading": "PPK Floatによる静止位置の比較",
+    "conditions": "11月1日10:15から60秒、平均深度16.44 m、同じ採用32点。",
+    "comparison": "姿勢補正ありの子機絶対位置3D RMSE：通常PPK 0.2031 m → Float設定PPK 0.0865 m（57.4%減）。",
+    "relative_position_note": "従来の0.1397 mは親子相対位置の3D RMSEであり、今回の絶対位置比較とは異なる。",
+    "limitation": "区間平均まわりのばらつきで、真値誤差ではない。GNSSと相対幾何の共分散を含む。同じ静止窓で方式を選定しており、独立データによる精度検証ではない。",
+    "fixed_parent_note": "親機姿勢固定では通常PPK 1.3116 m → Float設定PPK 1.3604 m。全条件でFloatが小さくなるわけではない。",
+    "missing_data_note": "10:15の開始約14秒は測距開始前の欠測。",
+    "map_qr_url": "https://aquabeacon.github.io/map/"
+  },
+  "windows": [
+    {
+      "id": "day1_144110",
+      "start_jst": "2026-10-31T14:41:10+09:00",
+      "duration_s": 60,
+      "condition": "exploratory_static_selection",
+      "depth_mean_m": 6.379540115244752,
+      "common_unique_shots": 83,
+      "ppk_ar_corrected_rmse_3d_m": 0.198535166874662,
+      "ppk_ar_fixed_parent_rmse_3d_m": 0.832386101130075,
+      "ppk_float_corrected_rmse_3d_m": 0.198535166874662,
+      "ppk_float_fixed_parent_rmse_3d_m": 0.832386101130075
+    },
+    {
+      "id": "day1_150300",
+      "start_jst": "2026-10-31T15:03:00+09:00",
+      "duration_s": 60,
+      "condition": "user_static",
+      "depth_mean_m": 4.780363291530876,
+      "common_unique_shots": 170,
+      "ppk_ar_corrected_rmse_3d_m": 0.2212582630835139,
+      "ppk_ar_fixed_parent_rmse_3d_m": 0.41557608562509873,
+      "ppk_float_corrected_rmse_3d_m": 0.17627474143744856,
+      "ppk_float_fixed_parent_rmse_3d_m": 0.394628478535296
+    },
+    {
+      "id": "day2_095600",
+      "start_jst": "2026-11-01T09:56:00+09:00",
+      "duration_s": 60,
+      "condition": "user_static",
+      "depth_mean_m": 14.661611951404593,
+      "common_unique_shots": 30,
+      "ppk_ar_corrected_rmse_3d_m": 0.5658276089822526,
+      "ppk_ar_fixed_parent_rmse_3d_m": 1.3354834724416444,
+      "ppk_float_corrected_rmse_3d_m": 0.28334608582967763,
+      "ppk_float_fixed_parent_rmse_3d_m": 1.1661809805677998
+    },
+    {
+      "id": "day2_101500",
+      "start_jst": "2026-11-01T10:15:00+09:00",
+      "duration_s": 60,
+      "condition": "user_static_delayed_ranging",
+      "depth_mean_m": 16.444556830634337,
+      "common_unique_shots": 32,
+      "ppk_ar_corrected_rmse_3d_m": 0.20314906371573577,
+      "ppk_ar_fixed_parent_rmse_3d_m": 1.3115576481321223,
+      "ppk_float_corrected_rmse_3d_m": 0.08650848606916613,
+      "ppk_float_fixed_parent_rmse_3d_m": 1.360377365120892
+    },
+    {
+      "id": "day2_102000",
+      "start_jst": "2026-11-01T10:20:00+09:00",
+      "duration_s": 60,
+      "condition": "intentional_hand_shaking",
+      "depth_mean_m": 16.455367553431678,
+      "common_unique_shots": 18,
+      "ppk_ar_corrected_rmse_3d_m": 0.36741531580151965,
+      "ppk_ar_fixed_parent_rmse_3d_m": 1.5628292196875078,
+      "ppk_float_corrected_rmse_3d_m": 0.3157243094116885,
+      "ppk_float_fixed_parent_rmse_3d_m": 1.5432501696087517
+    },
+    {
+      "id": "day2_103200",
+      "start_jst": "2026-11-01T10:32:00+09:00",
+      "duration_s": 60,
+      "condition": "user_static",
+      "depth_mean_m": 6.5435767729556575,
+      "common_unique_shots": 52,
+      "ppk_ar_corrected_rmse_3d_m": 0.4830199501402347,
+      "ppk_ar_fixed_parent_rmse_3d_m": 0.5153660060465484,
+      "ppk_float_corrected_rmse_3d_m": 0.4830199501402347,
+      "ppk_float_fixed_parent_rmse_3d_m": 0.5153660060465484
+    }
+  ]
+}
