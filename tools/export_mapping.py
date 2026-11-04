@@ -69,7 +69,7 @@ def export(analysis):
             continue
         raw = bytearray()
 
-        def append(values, code, components):
+        def append(values, code, components, raw=raw):
             nonlocal maximum_float_error
             while len(raw) % 4:
                 raw.append(0)
@@ -161,4 +161,8 @@ def export(analysis):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--analysis-root", type=Path, default=ROOT.parent / "aquabeacon-analysis")
-    export(parser.parse_args().analysis_root.resolve())
+    analysis_root = parser.parse_args().analysis_root.resolve()
+    export(analysis_root)
+    from export_navigation import export as export_navigation
+
+    export_navigation(analysis_root)

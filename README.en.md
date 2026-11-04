@@ -1,5 +1,7 @@
 # AquaBeacon website
 
+The [trajectory and mapping workspace](https://aquabeacon.github.io/map/) shows parent and child tracks from seven Nanyo segments alongside five accepted photo maps. It includes playback, independent layers, top/side/detail views, source photographs, PNG export and links preserving segment/time/view. Missing samples remain missing. The published data is the reviewed November 2 analysis; calibration and metric placement remain provisional. No raw logs, source videos or geographic origin are published.
+
 [日本語](README.md) | **English**
 
 A website introducing AquaBeacon, an open-source project in development for underwater positioning and mapping with light and sound.

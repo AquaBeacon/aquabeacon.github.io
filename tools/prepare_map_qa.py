@@ -1,5 +1,4 @@
 """Create an ignored QA copy of the actual public data, with local-only test UI."""
-import json
 import shutil
 from pathlib import Path
 
@@ -40,7 +39,7 @@ document.querySelector('#test-selections').addEventListener('click', async () =>
  try {
   for(const option of [...select.options]){
    choose(option.value); await ready();
-   const expected=option.textContent.includes('未採用')?canvas.hidden:!canvas.hidden&&status.textContent.includes('写真面');
+   const expected=!canvas.hidden&&status.textContent.includes('写真面');
    results.push(option.textContent+': '+(expected?'PASS':'FAIL')+' / '+status.textContent);result.textContent=results.join(' | ');
    if(!expected)throw Error('Unexpected selection state');
   }

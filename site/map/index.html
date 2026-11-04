@@ -1,34 +1,45 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>水中マップ | AquaBeacon</title>
-  <meta name="description" content="AquaBeaconの写真付き水中マップ。10月31日・11月1日の5区間、82,500点・230写真面をスマホで回転・拡大できます。手法と評価条件も公開。">
-  <meta name="theme-color" content="#071727"><link rel="canonical" href="https://aquabeacon.github.io/map/">
-  <meta property="og:title" content="水中マップと実験結果 | AquaBeacon"><meta property="og:description" content="写真付き水中マップを、手のひらで回して見る。5区間の暫定結果と手法・レポート。">
-  <meta property="og:type" content="website"><meta property="og:url" content="https://aquabeacon.github.io/map/">
-  <link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/research.css?v=2">
-  <script type="module" src="/assets/map-viewer.js?v=2"></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>軌跡と水中マップ | AquaBeacon</title>
+<meta name="description" content="親機・子機の軌跡と写真付き水中マップを、同じ3D空間で確認。南予7区間の推定位置、欠測、撮影画像、校正条件を時刻とともにたどれます。">
+<meta name="theme-color" content="#f3f6f8"><link rel="canonical" href="https://aquabeacon.github.io/map/">
+<meta property="og:title" content="軌跡と水中マップ | AquaBeacon"><meta property="og:description" content="親機、子機、水中の形。実験の記録を、ひとつの画面で。"><meta property="og:type" content="website"><meta property="og:url" content="https://aquabeacon.github.io/map/">
+<link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/map-explorer.css?v=3"><script type="module" src="/assets/map-viewer.js?v=3"></script>
 </head>
-<body class="map-page">
+<body class="explorer">
 <a class="skip" href="#main">本文へ移動</a>
-<header class="wrap"><a class="brand" href="/"><img src="/assets/icon.png" alt="" width="44" height="44">AquaBeacon</a><nav class="research-nav" aria-label="メインナビゲーション"><a href="/research/">研究・結果</a><a href="/research/methods/">手法</a><a href="/research/reports/">レポート</a><a href="/map/" aria-current="page">水中マップ</a></nav></header>
-<main id="main" class="wrap">
-  <div class="page-intro"><p class="eyebrow" lang="en">EXPLORE / UNDERWATER MAP</p><h1 id="map-title">水中を、手のひらで。</h1><p class="intro">2日間の7区間を解析し、5区間の写真付き地図を得ました。指で回して、水中の形をたどれます。</p><p class="note">最初は、深度約16 mの静止評価を含む11/1 区間3を表示します。2026.11.02 更新</p><p class="status" id="map-status" role="status">マップの情報を読み込み中</p></div>
-  <section aria-label="水中マップビューアー">
-    <div class="map-picker"><label for="map-selection">見る区間</label><select id="map-selection" aria-describedby="map-transfer" disabled><option>読み込み中</option></select><p class="note" id="map-transfer">初期表示の読み込みは約2.7 MBです。</p></div>
-    <div class="map-stage" id="map-stage">
-      <div class="map-placeholder" id="map-placeholder"><h2>マップを読み込み中</h2><p>確認済みの点群と写真面を読み込んでいます。</p><button id="retry-map" type="button" hidden>もう一度読み込む</button><p><a href="/research/reports/20261102-mapping/">マッピングの結果と条件を読む →</a></p></div>
-      <canvas class="map-canvas" id="map-canvas" width="800" height="600" tabindex="0" role="img" aria-label="操作できる水中マップ" aria-describedby="map-instruction map-detail" hidden>このブラウザではマップを描画できません。下のレポートをご覧ください。</canvas>
-      <div class="map-tools" id="map-tools" aria-label="マップ操作" hidden><button id="zoom-in" type="button" aria-label="マップを拡大">＋ 拡大</button><button id="zoom-out" type="button" aria-label="マップを縮小">− 縮小</button><button id="reset-view" type="button">撮影方向に戻す</button><button id="fit-view" type="button">全体を見る</button><button id="top-view" type="button">上から見る</button><button id="fullscreen" type="button">全画面</button></div>
-    </div>
-    <fieldset class="map-layers" id="map-layers" hidden><legend>表示するもの</legend><label><input id="show-photos" type="checkbox" checked>写真面</label><label><input id="show-points" type="checkbox">点群</label></fieldset>
-    <p class="note" id="map-instruction" hidden>1本指のドラッグで回転、2本指で拡大・縮小と移動。PCはドラッグで回転、ホイールで拡大・縮小、Shift＋ドラッグで移動。キーボードは矢印で回転、＋／−で拡大・縮小、0で初期表示。</p>
-    <p class="note" id="map-detail">共通のローカルENU座標（東・北・上、m）。圧力・姿勢・航法による暫定尺度・配置で、独立真値に対する精度は未検証です。</p>
-    <p class="callout">写真面は、復元点を結んだ三角形に撮影画像を貼ったものです。密な海底形状の復元ではありません。2日分の表示はGNSSによる重ね合わせで、写真同士の接続は未確認です。</p><div class="button-row"><a class="button" href="/research/reports/20261102-mapping/">マッピングの結果と条件 →</a><a class="button secondary" href="/research/methods/">測位・マッピングの手法 →</a></div>
-    <noscript><p class="callout">マップの操作にはJavaScriptが必要です。研究結果・手法・レポートはJavaScriptなしでも閲覧できます。公開状況は<a href="manifest.json">マップの情報</a>で確認できます。</p></noscript>
-  </section>
-  <section class="section" aria-labelledby="result-heading"><div class="result-layout"><div><p class="eyebrow" lang="en">POSTER RESULT / 2026.11.01</p><h2 id="result-heading">深度約16 mの静止評価</h2><p class="metric">0.1397 <small>m</small></p><p class="metric-label">姿勢補正後の3D RMSE</p><p class="note">10:15〜10:16 JST／平均深度16.44 m／採用32点</p></div><div><p>同じ観測点に対する親機姿勢固定時の1.4545 mから、平均まわりの位置のばらつきが90.4%減少しました。</p><p class="callout">RMSEは各系列の区間平均まわりのばらつきです。独立した位置真値に対する誤差ではありません。深度は水圧から換算した未校正の相対深度です。</p><div class="button-row"><a class="button" href="/research/reports/20261101-static/">評価条件と結果を読む →</a><a class="button secondary" href="/research/methods/">どのように測るか →</a></div></div></div></section>
-  <section class="section" aria-labelledby="explore-heading"><h2 id="explore-heading">研究の続きを読む</h2><ul class="index-list"><li><a href="/research/">研究・結果の入口 →</a><p>得られた結果と、これから検証すること。</p></li><li><a href="/research/methods/">光・音・姿勢を組み合わせる手法 →</a><p>観測、時刻対応、位置推定、評価までの流れ。</p></li><li><a href="/research/reports/">レポート一覧 →</a><p>実験条件、数値、指標の定義と来歴。</p></li></ul></section>
-</main><footer class="wrap"><span>© 2026 AquaBeacon</span><a href="https://github.com/AquaBeacon">ソース・設計をGitHubで見る ↗</a><a href="/">ホーム</a></footer>
+<header class="explorer-header"><a class="brand" href="/"><img src="/assets/icon.png" alt="" width="36" height="36">AquaBeacon</a><nav aria-label="メインナビゲーション"><a href="/map/" aria-current="page">軌跡とマップ</a><a href="/research/">研究・結果</a><a href="/research/methods/">手法</a><a href="/research/reports/">レポート</a></nav></header>
+<main id="main" class="explorer-main">
+<div class="explorer-heading"><div><p class="overline">南予・水中実験 / 2026.10.31 – 11.01</p><h1>軌跡と水中マップ</h1><p class="heading-note">親機の動き、子機の位置、水中の形をひとつの空間で。</p></div><div class="dataset-picker"><label for="map-selection">実験区間</label><select id="map-selection" disabled><option>読み込み中…</option></select><p id="map-transfer">公開済みの7区間から選べます。</p></div></div>
+<div class="workspace" id="map-workspace">
+<section class="scene-panel" aria-label="軌跡とマップの3D表示">
+<div class="scene-topbar"><p id="map-status" role="status">データを読み込み中…</p><span class="provisional">尺度・配置は暫定</span></div>
+<div class="map-stage" id="map-stage">
+<div class="map-placeholder" id="map-placeholder"><h2>実験の記録を読み込み中…</h2><p>親子の軌跡と、採用された地図を読み込みます。</p><button id="retry-map" type="button" hidden>もう一度読み込む</button><a href="/research/reports/20261102-mapping/">結果のレポートを読む →</a></div>
+<canvas id="map-canvas" width="1000" height="600" tabindex="0" role="img" aria-label="操作できる親子の軌跡と水中マップ" aria-describedby="map-instruction map-detail" hidden>3D表示にはWebGL対応ブラウザが必要です。</canvas>
+<div id="scene-labels" class="scene-labels" aria-hidden="true"></div><div class="scene-caption" id="view-caption" hidden>3D · 東 E / 北 N / 上 U · m</div><div class="scene-zoom" id="scene-zoom" hidden><button id="zoom-in" aria-label="拡大" type="button">＋</button><button id="zoom-out" aria-label="縮小" type="button">−</button></div>
+</div>
+<div class="map-tools" id="map-tools" hidden><div class="view-presets" aria-label="視点"><button id="fit-view" type="button" aria-pressed="true">3D 全体</button><button id="top-view" type="button" aria-pressed="false">上面</button><button id="side-view" type="button" aria-pressed="false">側面</button><button id="map-view" type="button" aria-pressed="false">地図を拡大</button><button id="reset-view" type="button" aria-pressed="false">撮影方向</button></div><div class="utility-tools"><button id="save-image" type="button">画像保存</button><button id="fullscreen" type="button">全画面</button></div></div>
+<div class="timeline" id="timeline" hidden><div class="timeline-heading"><span>記録の再生</span><output id="time-label" for="time time-number">0:00</output><span class="small muted" id="duration-label"></span><span class="replay-note">後処理結果の再生</span></div>
+<div class="time-controls"><button id="play" class="primary" type="button" aria-label="記録を再生" aria-pressed="false">▶ 再生</button><input type="range" id="time" name="time" aria-label="区間開始からの時刻" min="0" max="1" step="0.05" value="0"><label class="time-input"><input type="number" id="time-number" name="time-seconds" min="0" max="1" step="0.05" value="0" aria-label="区間開始からの秒数">秒</label><label class="speed-label"><span class="sr-only">再生速度</span><select id="speed" name="speed"><option value="1">1×</option><option value="5">5×</option><option value="10" selected>10×</option><option value="30">30×</option></select></label></div>
+<div class="availability" id="availability" aria-label="位置がある時刻。空白は欠測"></div><div class="timeline-foot"><label><input id="track-history" type="checkbox">選択時刻までの軌跡</label><span>色のある区間：位置あり　空白：欠測</span></div></div>
+<p class="group-note" id="group-note" hidden>複数区間を共通座標で表示しています。時刻を再生するには、実験区間を1つ選んでください。日付間を結ぶ線や位置の補間は行いません。</p>
+</section>
+<aside class="inspector" aria-label="表示対象と選択時刻の情報">
+<fieldset class="layers" id="map-layers"><legend>表示するもの</legend><label><input id="show-parent" type="checkbox" checked><span class="swatch parent"></span><span>親機の軌跡<small>GNSSアンテナ位置</small></span></label><label><input id="show-child" type="checkbox" checked><span class="swatch child"></span><span>子機の軌跡<small>機体原点の推定位置</small></span></label><label><input id="show-photos" type="checkbox" checked><span class="swatch photo"></span><span>写真付き地図</span></label><label><input id="show-points" type="checkbox"><span class="swatch points"></span><span>復元点群</span></label><label><input id="show-grid" type="checkbox" checked><span class="swatch grid"></span><span>距離の目盛り</span></label></fieldset>
+<section class="position-readout"><h2>選択時刻の位置 <small>ENU · m</small></h2><div id="position-values"><p class="muted">読み込み中…</p></div><p class="small muted" id="anchor-age"></p></section>
+<section class="photo-readout"><div class="section-label"><h2>地図の元画像</h2><span id="photo-count"></span></div><figure><img id="source-photo" alt="選択時刻に最も近い地図の撮影画像" width="960" height="540" hidden><figcaption id="photo-caption">区間を選ぶと元画像を確認できます。</figcaption></figure><p id="no-map" class="empty-note" hidden></p></section>
+<section class="dataset-facts"><h2>この区間</h2><dl><div><dt>復元点</dt><dd id="point-count">—</dd></div><div><dt>写真面</dt><dd id="surface-count">—</dd></div><div><dt>子機の有効サンプル</dt><dd id="coverage">—</dd></div></dl><p class="small muted">有効サンプル率は表示系列での割合。測位の精度を示す値ではありません。</p></section>
+</aside></div>
+<p id="map-instruction" class="interaction-help">ドラッグで回転 · ホイール／ピンチで拡大 · Shift＋ドラッグ／2本指で移動。キーボードは矢印で回転、Shift＋矢印で移動、＋／−で拡大縮小、0で全体へ。</p>
+<section class="interpretation" aria-labelledby="conditions-title"><div class="interpretation-intro"><p class="overline">表示の根拠</p><h2 id="conditions-title">座標・校正と、この表示の読み方</h2><p id="map-detail">2026年11月2日の採用済み地図と、対応する親子の航法結果を表示しています。</p><a href="/research/reports/20261102-mapping/">採用・除外条件のレポート →</a></div><div class="condition-list">
+<details open><summary>軌跡と欠測</summary><p>親機はFloat設定PPKとIMU、子機は光・音・圧力・IMUから推定した位置です。子機は元解析で最大3秒の慣性による位置伝播を含みます。現在位置は直前の表示サンプルを使い、欠測を補間しません。地図が未採用でも、軌跡は確認できます。</p><p>丸は位置を示す記号で、実機の形や姿勢を表しません。色付きのバーは約4 Hzの表示系列の有効区間です。</p></details>
+<details><summary>測定中心・校正・尺度</summary><p>親機はGNSSアンテナ、子機は機体原点です。地図の撮影カメラ中心とは一致しません。CAD由来の取付け・測定中心や圧力深度に暫定条件が残ります。表示の刷新によって校正値や測定結果は変えていません。独立した真値に対する精度は未検証です。</p><p>東 E・北 N・上 U の共通ローカル座標をmで表示します。Uは海面からの水深ではなく、目盛り面も海面・海底を表しません。地理原点の緯度経度は非掲載です。</p></details>
+<details><summary>写真地図と時間の関係</summary><p>写真付き地図は、復元した疎な点を結ぶ三角形に画像を貼った近似です。地図は後処理の最終結果を常に表示します。再生するのは親子の位置であり、オンラインの地図生成ではありません。右の画像は最近傍の撮影画像で、選択時刻との差を表示します。</p><p>2日分の重ね合わせはGNSSに基づく配置です。日をまたぐ写真同士の接続は未確認です。11/1 区間4・5は今回の公開地図では絶対配置を採用していません。</p></details>
+<details><summary>データの版と来歴</summary><p id="source-version">解析版：2026-11-02 / 表示更新：2026-11-05。後日の光源回復・位置フォールバック解析とは別の公開結果です。</p><p id="source-hash" class="hash-note"></p><a href="manifest.json">公開データの台帳（JSON）</a> · <a href="/research/reports/20261102-mapping/summary.json">地図の来歴（JSON）</a></details>
+</div></section>
+<noscript><p class="empty-note">3D表示にはJavaScriptが必要です。<a href="/research/reports/20261102-mapping/">静的な地図と結果レポート</a>はそのまま閲覧できます。</p></noscript>
+</main><footer class="explorer-footer"><a class="brand" href="/">AquaBeacon</a><span>光と音で、水中の位置を知る。</span><a href="https://github.com/AquaBeacon/aquabeacon.github.io">ソースコード ↗</a></footer>
 </body></html>

@@ -65,6 +65,18 @@ assert manifest["schemaVersion"] == 2 and manifest["status"] == "ready"
 totals = {key: 0 for key in ("pointCount", "photoCount", "triangleCount")}
 expected_assets = set()
 for item in manifest["datasets"]:
+    nav = item["navigation"]
+    nav_path = (SITE / "map" / nav["file"]).resolve()
+    assert nav_path.is_relative_to((SITE / "map/data").resolve())
+    assert hashlib.sha256(nav_path.read_bytes()).hexdigest() == nav["sha256"]
+    assert nav_path.stat().st_size == nav["bytes"]
+    navigation = json.loads(nav_path.read_text(encoding="utf-8"))
+    assert len(navigation["rows"]) == nav["samples"]
+    assert navigation["source"]["accuracyValidated"] is False
+    assert navigation["source"]["sfmUsedForNavigation"] is False
+    assert set(navigation) == {"schemaVersion", "id", "durationSeconds", "defaultTimeSeconds",
+        "maxGapSeconds", "columns", "rows", "bounds", "validSamples", "referencePoints", "source", "notes"}
+    expected_assets.add(nav_path)
     for key in totals:
         totals[key] += item[key]
     if item["availability"] == "unavailable":

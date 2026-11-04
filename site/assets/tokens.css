@@ -16,4 +16,13 @@
   --s8: 4rem;
   --radius: .5rem;
   --page: 76rem;
+  --workspace-bg: #f3f6f8;
+  --workspace-panel: #ffffff;
+  --workspace-ink: #193242;
+  --workspace-muted: #526878;
+  --workspace-line: #d7e1e7;
+  --workspace-accent: #006b73;
+  --workspace-focus: #007b86;
+  --track-parent: #63d4ff;
+  --track-child: #ffb65c;
 }

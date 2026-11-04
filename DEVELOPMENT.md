@@ -13,7 +13,9 @@ Python 3で python -m http.server 8080 --bind 127.0.0.1 --directory site を実�
 
 ```sh
 python tools/verify_site.py
-node --test tests/map-data.test.mjs
+node --test tests/map-data.test.mjs tests/navigation-data.test.mjs
+python -m ruff check tools/export_mapping.py tools/export_navigation.py tools/verify_site.py
+node tools/verify_map_browser.mjs --playwright-root <existing-node_modules> --browser-executable <existing-browser>
 ```
 
 375px/1280pxで本文・表・リンク・キーボードフォーカス・横溢れを確認します。地図は実際の公開データで写真面・点群の表示、全7区間と3種類の重ね合わせ、回転・拡大・移動・初期化・上面表示・タッチ・連続切替の中断処理を検証します。`python tools/prepare_map_qa.py` でGit除外の `.local/map-qa/` に検証UIを作り、別ポートで配信できます。`mobile.html` は375px iframe、`failure/` はデータ欠落時の検証専用ページです。検証UIはsite/へ含めません。

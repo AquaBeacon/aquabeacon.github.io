@@ -28,13 +28,17 @@ export function validateManifest(value) {
     } else {
       require(data.file === null && data.pointCount === 0 && data.photoCount === 0 && data.triangleCount === 0 && typeof data.reason === 'string', 'Unavailable data must not contain a map.');
     }
+    if (value.trajectoryVersion === 1) {
+      localPath(data.navigation?.file, 'json');
+      require(HASH.test(data.navigation.sha256) && integer(data.navigation.bytes, 1, 10000000) && integer(data.navigation.samples, 1, 50000), 'Invalid navigation metadata.');
+    }
   }
   require(value.datasets.some(d => d.id === value.defaultSelection && d.availability === 'ready'), 'Invalid default map.');
   require(Array.isArray(value.groups), 'Missing map groups.');
   for (const group of value.groups) {
     require(ID.test(group.id) && !ids.has(group.id) && typeof group.label === 'string', 'Invalid group identity.');
     ids.add(group.id);
-    require(Array.isArray(group.ids) && group.ids.length > 0 && new Set(group.ids).size === group.ids.length && group.ids.every(id => value.datasets.some(d => d.id === id && d.availability === 'ready')), 'Invalid group members.');
+    require(Array.isArray(group.ids) && group.ids.length > 0 && new Set(group.ids).size === group.ids.length && group.ids.every(id => value.datasets.some(d => d.id === id && (d.availability === 'ready' || value.trajectoryVersion === 1 && d.navigation))), 'Invalid group members.');
   }
   require(Object.keys(totals).every(key => totals[key] === value.totals?.[key]), 'Catalog totals do not match.');
   return value;
