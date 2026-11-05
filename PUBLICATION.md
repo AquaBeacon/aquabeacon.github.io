@@ -2,7 +2,10 @@
 
 ## OSSサイト全面再構築（2026-11-06）
 
-- ローカル実装・検証済み。公開反映はこれから確認する。
+- 公開済み。公開元は `6ab942ee0b2c1c016870398354c9579f12299dea`。[GitHub Actions成功](https://github.com/AquaBeacon/aquabeacon.github.io/actions/runs/42061771770)と [本番サイト](https://aquabeacon.github.io/) を確認。
+- 本番でも全10文書ページの1280/375px、スマホ相当の回転/ピンチ/移動、全7区間/3グループ、時刻/欠測/表示レイヤー/PNG/URL復元を確認。存在しないURLは専用404ページとHTTP 404を返す。未捕捉JavaScriptエラーなし。
+- 公開したHTML・CSS・画像・フォントと既存の主要JS/台帳/選定データ/来歴、計39ファイルのSHA-256が公開コミットのバイト列と一致。証跡は `.local/redesign/live-hashes.json`、`live-pages-verification.json`、`.local/map-review/live-verification.json`。
+- 関連するリポジトリ台帳と導線はworkspace-toolsの `189a43c`、運用文書はdocsの `cf22183` へ反映。初回pushのGitHub内部エラーは、ブランチルール・権限・リモートSHAを確認後に同じpushを再試行して成功した。
 - 旧9ページのHTMLをローカル退避して削除後、共通テンプレートと本文から全11ページを再構築。AquaWiz Design v3.1を参照し、Paper/Abyss配色、Inter・Noto Sans JP・JetBrains Mono、細い罫線、既存の実機写真を採用。既存URLとポスターQRは維持した。
 - 概要・仕組み・研究結果・つくる/使う・公開資料・軌跡とマップを共通導線にした。全19公開リポジトリを用途別整理し、検索、仕様への直接リンク、結果/来歴JSON、参加方法、ライセンスを掲載。GitHub APIで全19件の公開状態と、8リポジトリ内のblob/treeリンク15件を確認した。
 - `/map/` のPC配置を維持。狭幅の再生位置、指操作案内、44px程度の操作対象を整えた。表示データ・座標・欠測・校正値・研究図・地図形状は変更していない。

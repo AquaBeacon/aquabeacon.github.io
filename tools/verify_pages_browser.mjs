@@ -25,7 +25,7 @@ try{
  for(const width of [1280,375]){
   await page.setViewportSize({width,height:960});
   for(const route of routes){
-   const response=await page.goto(base+route);assert.equal(response.status(),route==='/404.html'&&option('--url')?404:200);
+   const response=await page.goto(base+route);assert.equal(response.status(),200);
    await page.evaluate(()=>document.fonts.ready);await noOverflow(page);assert.equal(await page.locator('h1').count(),1);
    const images=await page.locator('img').evaluateAll(imgs=>Promise.all(imgs.map(async i=>{i.loading='eager';if(!i.complete){await new Promise(r=>{i.onload=r;i.onerror=r;});}return i.naturalWidth>0;})));assert(images.every(Boolean),'Broken images '+route);
    assert.equal(await page.locator('main').count(),1);assert.equal(await page.locator('.site-header').count(),1);
@@ -34,6 +34,7 @@ try{
   }
  }
  record.checks.push('10 document pages at 1280/375: status, no overflow, headings, images, fonts');
+ if(option('--url')){const response=await page.goto(base+'/__missing_page_for_qa__/');assert.equal(response.status(),404);assert.match(await page.locator('h1').innerText(),/ページが見つかりません/);record.checks.push('unknown route serves custom 404 with HTTP 404');}
  await page.goto(base+'/');await page.locator('.mobile-menu summary').click();assert(await page.locator('.mobile-menu nav').isVisible());await page.keyboard.press('Escape');assert(!await page.locator('.mobile-menu nav').isVisible());assert(await page.locator('.mobile-menu summary').evaluate(e=>document.activeElement===e));
  await page.locator('.mobile-menu summary').click();await page.locator('.mobile-menu a[href="/resources/"]').click();assert(page.url().endsWith('/resources/'));
  const search=page.locator('#resource-search');await search.fill('GNSS');assert.match(await page.locator('#resource-count').innerText(),/^1 \/ 19/);await search.fill('no-such-resource-xyz');assert(await page.locator('#resource-empty').isVisible());await search.fill('');assert.equal(await page.locator('[data-resource]:visible').count(),19);
@@ -46,7 +47,7 @@ try{
  const label=await canvas.getAttribute('aria-label');await send('touchStart',[pt(1,x-40,y),pt(2,x+40,y)]);await send('touchMove',[pt(1,x-60,y),pt(2,x+60,y)]);await send('touchEnd',[]);await settle();assert.notEqual(await canvas.getAttribute('aria-label'),label);
  before=await canvas.screenshot();await send('touchStart',[pt(1,x-40,y),pt(2,x+40,y)]);await send('touchMove',[pt(1,x-20,y+30),pt(2,x+60,y+30)]);await send('touchEnd',[]);await settle();assert.notDeepEqual(await canvas.screenshot(),before);
  await phone.locator('#fit-view').click();await phone.locator('#play').click();await phone.waitForFunction(()=>document.querySelector('#play').getAttribute('aria-pressed')==='true');await phone.locator('#play').click();
- await phone.selectOption('#map-selection','20261101_nanyo_004');await phone.waitForFunction(()=>!document.querySelector('#no-map').hidden);assert(await phone.locator('#timeline').isVisible());await phone.selectOption('#map-selection','20261101_nanyo_003');await phone.waitForFunction(()=>!document.querySelector('#map-view').disabled);
+ await phone.selectOption('#map-selection','20261101_nanyo_004');await phone.waitForFunction(()=>!document.querySelector('#no-map').hidden&&!document.querySelector('#timeline').hidden&&!document.querySelector('#map-status').textContent.includes('読み込み'));assert(await phone.locator('#timeline').isVisible());await phone.selectOption('#map-selection','20261101_nanyo_003');await phone.waitForFunction(()=>!document.querySelector('#map-view').disabled&&!document.querySelector('#map-canvas').hidden);
  await phone.waitForFunction(()=>!document.querySelector('#map-status').textContent.includes('読み込み'));await phone.evaluate(()=>scrollTo(0,0));await shot(phone,'map-mobile-touch',true);await shot(phone,'map-mobile-viewport');await phone.setViewportSize({width:812,height:375});await noOverflow(phone);await shot(phone,'map-landscape');await phone.close();
  record.checks.push('mobile emulation: real touch protocol rotate/pinch/pan, replay, excluded-map section, landscape');
  const nojs=await browser.newPage({javaScriptEnabled:false,viewport:{width:375,height:900}});await nojs.goto(base+'/resources/');assert.equal(await nojs.locator('[data-resource]').count(),19);await nojs.locator('.mobile-menu summary').click();assert(await nojs.locator('.mobile-menu nav').isVisible());await noOverflow(nojs);await nojs.goto(base+'/map/');assert(await nojs.locator('noscript a').isVisible());await nojs.close();record.checks.push('no-JS content, navigation, all repositories, map report fallback');
