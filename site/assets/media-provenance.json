@@ -1,0 +1,28 @@
+{
+  "images": [
+    {
+      "file": "device-harbor.webp",
+      "source": "AquaBeacon/assets/aquabeacon-film60/media/photos/IMG_8005.jpg",
+      "sourceSHA256": "6a87e32dd315ac9d41db4966a46b1b3964dcf9e1a0d2305479e95e924c688cc8",
+      "sha256": "db77b1243043fb03d0d54b94ded357f14ebb80b2cc3c4fc8a59dc064a5114f8f",
+      "dimensions": [
+        1200,
+        1600
+      ],
+      "processing": "sRGB source, resize only, WebP quality 85; EXIF/XMP not retained",
+      "credit": "AquaBeacon project-provided photograph; see THIRD_PARTY.md"
+    },
+    {
+      "file": "device-detail.webp",
+      "source": "AquaBeacon/assets/aquabeacon-film60/media/photos/IMG_8027.jpg",
+      "sourceSHA256": "899f7f29b4fdc25fa1f32009012b2b1765f723c614b9896f880302584d9d5b88",
+      "sha256": "283884878720e1b996ff5e8152e878e36a7c8cdfaaa98ac2dd7a930d659f3ef6",
+      "dimensions": [
+        1600,
+        1200
+      ],
+      "processing": "sRGB source, resize only, WebP quality 85; EXIF/XMP not retained",
+      "credit": "AquaBeacon project-provided photograph; see THIRD_PARTY.md"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "family": "Inter",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/inter/Inter%5Bopsz,wght%5D.ttf",
+    "sourceSHA256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
+    "file": "inter.woff",
+    "sha256": "21ca2c8a861eedf6b0abc1e9babe21a4ff37e609ec20daa6b5202106523008a9",
+    "license": "inter-OFL.txt"
+  },
+  {
+    "family": "Noto Sans JP",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansjp/NotoSansJP%5Bwght%5D.ttf",
+    "sourceSHA256": "c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f",
+    "file": "noto-sans-jp.woff",
+    "sha256": "13dca36bb077d06dc7ec0cc0e2b6811de3447047fc7cefcc00fde01e19aa9edb",
+    "license": "noto-sans-jp-OFL.txt"
+  },
+  {
+    "family": "JetBrains Mono",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/jetbrainsmono/JetBrainsMono%5Bwght%5D.ttf",
+    "sourceSHA256": "48715a42ec242c21e9f02692891e147d022299a52e48d5e413e1a942193ffeda",
+    "file": "jetbrains-mono.woff",
+    "sha256": "a9eadb5ff083870229861fe902c54701c848a1c0fc857687b476a317d1085a58",
+    "license": "jetbrains-mono-OFL.txt"
+  }
+]

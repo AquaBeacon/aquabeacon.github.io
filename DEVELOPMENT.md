@@ -45,3 +45,20 @@ git clone https://github.com/AquaBeacon/aquabeacon.github.io.git
 ```
 
 公開ブランチはmainです。新設リポジトリは公開対象だけを初期履歴にし、過去の開発履歴と実験ログはローカルに保管します。
+
+## ページの編集と全体検証
+
+本文は `content/*.html`、共通HTMLは `tools/build_site.py` が正本です。生成された `site/**/*.html` を直接編集しません。公開図・JSON・map/dataは生成スクリプトで変更しません。
+
+```sh
+python tools/build_site.py
+python tools/build_site.py --check
+python tools/verify_site.py
+python -m ruff check tools/build_site.py tools/prepare_site_media.py tools/prepare_site_fonts.py
+node --check site/assets/site.js
+node tools/verify_pages_browser.mjs --playwright-root <existing-node_modules> --browser-executable <existing-browser>
+```
+
+ブラウザ検証は一度に1つずつ実行します。既存マップ検証も続けて実施してください。本番は両ブラウザ検証へ `--url https://aquabeacon.github.io` を渡します。各スクリプトは所有PID・開始時刻・目的を記録し、終了時にブラウザとループバックサーバーを閉じます。証跡はGit除外の `.local/redesign/` と `.local/map-review/` です。
+
+写真の再生成は `python tools/prepare_site_media.py`（Pillow）、文字を大きく追加した際のフォントサブセット更新は `python tools/prepare_site_fonts.py`（fontTools）。いずれも任意の制作工程です。書体の元データは `.local/redesign/fonts/` にキャッシュし、ライセンスと来歴は `site/assets/fonts/` に保持します。記事の新しい文字がサブセットにない場合も、指定したOSフォントへフォールバックします。

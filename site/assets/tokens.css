@@ -1,28 +1,17 @@
+/* AquaWiz Design v3.1 roles; AquaBeacon content and identity. */
 :root {
-  --ocean: #071727;
-  --deep: #0b2335;
-  --signal: #20d9d2;
-  --ice: #eaf9ff;
-  --muted: #aec6d4;
-  --line: #315267;
-  --body: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
-  --display: "Trebuchet MS", "Yu Gothic", sans-serif;
-  --mono: Consolas, monospace;
-  --s1: .5rem;
-  --s2: 1rem;
-  --s3: 1.5rem;
-  --s4: 2rem;
-  --s6: 3rem;
-  --s8: 4rem;
-  --radius: .5rem;
-  --page: 76rem;
-  --workspace-bg: #f3f6f8;
-  --workspace-panel: #ffffff;
-  --workspace-ink: #193242;
-  --workspace-muted: #526878;
-  --workspace-line: #d7e1e7;
-  --workspace-accent: #006b73;
-  --workspace-focus: #007b86;
-  --track-parent: #63d4ff;
-  --track-child: #ffb65c;
+ color-scheme:light;
+ --background:#f9f8f5; --foreground:#0e121b; --card:#fff; --primary:#dc2626;
+ --secondary:hsl(45 18% 93%); --muted:hsl(220 10% 40%); --border:hsl(45 12% 86%); --focus:#dc2626;
+ --body:"Inter","Noto Sans JP","Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+ --display:var(--body); --mono:"JetBrains Mono","Cascadia Code",Consolas,monospace;
+ --page:1440px; --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem; --s6:3rem; --s8:4rem; --radius:0;
+ --workspace-bg:#f9f8f5; --workspace-panel:#fff; --workspace-ink:#0e121b; --workspace-muted:#5c6270;
+ --workspace-line:hsl(45 12% 86%); --workspace-accent:#0e121b; --workspace-focus:#dc2626;
+ --ice:#eaf9ff; --track-parent:#63d4ff; --track-child:#ffb65c;
+}
+:root[data-theme="dark"] {
+ color-scheme:dark; --background:hsl(220 25% 5%); --foreground:hsl(40 20% 96%);
+ --card:hsl(220 20% 7%); --primary:hsl(0 76% 58%); --secondary:hsl(220 16% 11%);
+ --muted:hsl(220 10% 68%); --border:hsl(220 12% 22%); --focus:hsl(0 76% 65%);
 }

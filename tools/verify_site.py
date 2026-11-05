@@ -102,4 +102,16 @@ assert summary["mappingStatus"] == "ready"
 for entry in ElementTree.parse(SITE / "sitemap.xml").iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc"):
     path = SITE / urlsplit(entry.text).path.lstrip("/") / "index.html"
     assert path.is_file(), f"Missing sitemap page: {entry.text}"
-print(f"PASS: {len(pages)} HTML pages, links/fragments, local scripts, sitemap, evidence hashes, map state, no local absolute paths.")
+media = json.loads((SITE / "assets/media-provenance.json").read_text(encoding="utf-8"))
+for item in media["images"]:
+    image = (SITE / "assets" / item["file"]).resolve()
+    assert image.is_relative_to((SITE / "assets").resolve())
+    assert hashlib.sha256(image.read_bytes()).hexdigest() == item["sha256"]
+for item in json.loads((SITE / "assets/fonts/provenance.json").read_text(encoding="utf-8")):
+    font = (SITE / "assets/fonts" / item["file"]).resolve()
+    assert font.is_relative_to((SITE / "assets/fonts").resolve())
+    assert hashlib.sha256(font.read_bytes()).hexdigest() == item["sha256"]
+    license_path = (SITE / "assets/fonts" / item["license"]).resolve()
+    assert license_path.is_relative_to((SITE / "assets/fonts").resolve())
+    assert "SIL OPEN FONT LICENSE" in license_path.read_text(encoding="utf-8")
+print(f"PASS: {len(pages)} HTML pages, links/fragments, local scripts, sitemap, evidence/media/font hashes, font licenses, map state, no local absolute paths.")

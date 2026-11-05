@@ -1,25 +1,22 @@
 <!doctype html>
-<html lang="ja">
-<head>
+<html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>軌跡と水中マップ | AquaBeacon</title>
-<meta name="description" content="親機・子機の軌跡と写真付き水中マップを、同じ3D空間で確認。南予7区間の推定位置、欠測、撮影画像、校正条件を時刻とともにたどれます。">
-<meta name="theme-color" content="#f3f6f8"><link rel="canonical" href="https://aquabeacon.github.io/map/">
-<meta property="og:title" content="軌跡と水中マップ | AquaBeacon"><meta property="og:description" content="親機、子機、水中の形。実験の記録を、ひとつの画面で。"><meta property="og:type" content="website"><meta property="og:url" content="https://aquabeacon.github.io/map/">
-<link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/map-explorer.css?v=3"><script type="module" src="/assets/map-viewer.js?v=3"></script>
-</head>
-<body class="explorer">
+<title>軌跡と水中マップ | AquaBeacon</title><meta name="description" content="親機・子機の軌跡と写真付き水中マップを3Dで操作。回転、拡大、時刻再生で南予7区間の実験を確認できます。">
+<meta name="theme-color" content="#F9F8F5"><link rel="canonical" href="https://aquabeacon.github.io/map/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="AquaBeacon"><meta property="og:title" content="軌跡と水中マップ | AquaBeacon"><meta property="og:description" content="親機・子機の軌跡と写真付き水中マップを3Dで操作。回転、拡大、時刻再生で南予7区間の実験を確認できます。"><meta property="og:url" content="https://aquabeacon.github.io/map/"><meta property="og:image" content="https://aquabeacon.github.io/assets/social.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/style.css?v=4"><link rel="stylesheet" href="/assets/map-explorer.css?v=4"><script type="module" src="/assets/map-viewer.js?v=4"></script><script src="/assets/site.js?v=4" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "軌跡と水中マップ | AquaBeacon", "description": "親機・子機の軌跡と写真付き水中マップを3Dで操作。回転、拡大、時刻再生で南予7区間の実験を確認できます。", "url": "https://aquabeacon.github.io/map/", "inLanguage": "ja", "isPartOf": {"@type": "WebSite", "name": "AquaBeacon", "url": "https://aquabeacon.github.io/"}}</script>
+</head><body class="explorer">
 <a class="skip" href="#main">本文へ移動</a>
-<header class="explorer-header"><a class="brand" href="/"><img src="/assets/icon.png" alt="" width="36" height="36">AquaBeacon</a><nav aria-label="メインナビゲーション"><a href="/map/" aria-current="page">軌跡とマップ</a><a href="/research/">研究・結果</a><a href="/research/methods/">手法</a><a href="/research/reports/">レポート</a></nav></header>
-<main id="main" class="explorer-main">
-<div class="explorer-heading"><div><p class="overline">南予・水中実験 / 2026.10.31 – 11.01</p><h1>軌跡と水中マップ</h1><p class="heading-note">親機の動き、子機の位置、水中の形をひとつの空間で。</p></div><div class="dataset-picker"><label for="map-selection">実験区間</label><select id="map-selection" disabled><option>読み込み中…</option></select><p id="map-transfer">公開済みの7区間から選べます。</p></div></div>
+<header class="site-header"><div class="header-inner"><a class="brand" href="/" aria-label="AquaBeacon ホーム">AquaBeacon<span class="brand-mark" aria-hidden="true">↗</span></a><nav class="desktop-nav" aria-label="メインナビゲーション"><a href="/">概要</a><a href="/research/methods/">仕組み</a><a href="/research/">研究・結果</a><a href="/build/">つくる・使う</a><a href="/resources/">公開資料</a><a href="/map/" aria-current="page">軌跡とマップ</a></nav><div class="header-tools"><a href="/en/" lang="en" hreflang="en">EN</a><details class="mobile-menu"><summary>メニュー <span aria-hidden="true">＋</span></summary><nav aria-label="モバイルナビゲーション"><a href="/">概要</a><a href="/research/methods/">仕組み</a><a href="/research/">研究・結果</a><a href="/build/">つくる・使う</a><a href="/resources/">公開資料</a><a href="/map/" aria-current="page">軌跡とマップ</a></nav></details></div></div></header>
+<main id="main" class="explorer-main"><div class="explorer-heading"><div><p class="overline">南予・水中実験 / 2026.10.31 – 11.01</p><h1>軌跡と水中マップ</h1><p class="heading-note">親機の動き、子機の位置、水中の形をひとつの空間で。</p></div><div class="dataset-picker"><label for="map-selection">実験区間</label><select id="map-selection" disabled><option>読み込み中…</option></select><p id="map-transfer">公開済みの7区間から選べます。</p></div></div>
 <div class="workspace" id="map-workspace">
 <section class="scene-panel" aria-label="軌跡とマップの3D表示">
 <div class="scene-topbar"><p id="map-status" role="status">データを読み込み中…</p><span class="provisional">尺度・配置は暫定</span></div>
 <div class="map-stage" id="map-stage">
 <div class="map-placeholder" id="map-placeholder"><h2>実験の記録を読み込み中…</h2><p>親子の軌跡と、採用された地図を読み込みます。</p><button id="retry-map" type="button" hidden>もう一度読み込む</button><a href="/research/reports/20261102-mapping/">結果のレポートを読む →</a></div>
 <canvas id="map-canvas" width="1000" height="600" tabindex="0" role="img" aria-label="操作できる親子の軌跡と水中マップ" aria-describedby="map-instruction map-detail" hidden>3D表示にはWebGL対応ブラウザが必要です。</canvas>
-<div id="scene-labels" class="scene-labels" aria-hidden="true"></div><div class="scene-caption" id="view-caption" hidden>3D · 東 E / 北 N / 上 U · m</div><div class="scene-zoom" id="scene-zoom" hidden><button id="zoom-in" aria-label="拡大" type="button">＋</button><button id="zoom-out" aria-label="縮小" type="button">−</button></div>
+<p class="gesture-hint" aria-hidden="true">1本指で回転 · 2本指で拡大・移動</p><div id="scene-labels" class="scene-labels" aria-hidden="true"></div><div class="scene-caption" id="view-caption" hidden>3D · 東 E / 北 N / 上 U · m</div><div class="scene-zoom" id="scene-zoom" hidden><button id="zoom-in" aria-label="拡大" type="button">＋</button><button id="zoom-out" aria-label="縮小" type="button">−</button></div>
 </div>
 <div class="map-tools" id="map-tools" hidden><div class="view-presets" aria-label="視点"><button id="fit-view" type="button" aria-pressed="true">3D 全体</button><button id="top-view" type="button" aria-pressed="false">上面</button><button id="side-view" type="button" aria-pressed="false">側面</button><button id="map-view" type="button" aria-pressed="false">地図を拡大</button><button id="reset-view" type="button" aria-pressed="false">撮影方向</button></div><div class="utility-tools"><button id="save-image" type="button">画像保存</button><button id="fullscreen" type="button">全画面</button></div></div>
 <div class="timeline" id="timeline" hidden><div class="timeline-heading"><span>記録の再生</span><output id="time-label" for="time time-number">0:00</output><span class="small muted" id="duration-label"></span><span class="replay-note">後処理結果の再生</span></div>
@@ -41,5 +38,6 @@
 <details><summary>データの版と来歴</summary><p id="source-version">解析版：2026-11-02 / 表示更新：2026-11-05。後日の光源回復・位置フォールバック解析とは別の公開結果です。</p><p id="source-hash" class="hash-note"></p><a href="manifest.json">公開データの台帳（JSON）</a> · <a href="/research/reports/20261102-mapping/summary.json">地図の来歴（JSON）</a></details>
 </div></section>
 <noscript><p class="empty-note">3D表示にはJavaScriptが必要です。<a href="/research/reports/20261102-mapping/">静的な地図と結果レポート</a>はそのまま閲覧できます。</p></noscript>
-</main><footer class="explorer-footer"><a class="brand" href="/">AquaBeacon</a><span>光と音で、水中の位置を知る。</span><a href="https://github.com/AquaBeacon/aquabeacon.github.io">ソースコード ↗</a></footer>
+</main>
+<footer class="site-footer"><div class="wrap"><div class="footer-top"><a class="brand" href="/">AquaBeacon</a><p>光と音で、水中の位置を知る。</p></div><nav class="footer-nav" aria-label="フッターナビゲーション"><a href="/">概要</a><a href="/research/methods/">仕組み</a><a href="/research/">研究・結果</a><a href="/build/">つくる・使う</a><a href="/resources/">公開資料</a><a href="/map/" aria-current="page">軌跡とマップ</a></nav><div class="footer-bottom"><span>© 2026 AquaBeacon</span><a href="https://github.com/AquaBeacon">GitHub ↗</a><a href="/resources/#license">ライセンス・出典</a><a href="/resources/#contribute">開発に参加する</a></div></div></footer>
 </body></html>

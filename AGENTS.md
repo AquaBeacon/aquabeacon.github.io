@@ -14,3 +14,9 @@
 - `python tools/verify_site.py`、`node --test tests/map-data.test.mjs tests/navigation-data.test.mjs`、変更Pythonのruffを実行する。
 - 実画面は `node tools/verify_map_browser.mjs --playwright-root <既存node_modules> --browser-executable <既存Edge等>`。一時サーバー・専用ブラウザのPIDと開始時刻を記録し、finallyで終了する。`--url https://aquabeacon.github.io` で本番確認。
 - 公開データの形式・制約・受け入れ条件は `MAP_PUBLISHING.md`、表示の判断は `DESIGN.md` に同期する。
+
+## ページの編集元（2026-11-06）
+
+- `content/*.html` と `tools/build_site.py` を編集し、`python tools/build_site.py` で全11ページを生成する。配信HTMLを直接編集しない。
+- `python tools/build_site.py --check` と `tools/verify_pages_browser.mjs` を既存検証に追加する。ブラウザ検証は同時に複数起動しない。
+- フォントは自己配信しOFLを維持する。写真は既存提供素材の縮小版で、EXIF/XMPを公開しない。

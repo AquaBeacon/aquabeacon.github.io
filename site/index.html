@@ -1,72 +1,35 @@
 <!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AquaBeacon | 光と音で、水中の位置を知る。</title>
-  <meta name="description" content="AquaBeacon（アクアビーコン）は、光と音を組み合わせて水中の位置推定・マッピングを目指すオープンソースプロジェクトです。ソフトウェア・ハードウェア設計・ドキュメントをGitHubで公開しています。">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#071727">
-  <link rel="canonical" href="https://aquabeacon.github.io/">
-  <link rel="alternate" hreflang="ja" href="https://aquabeacon.github.io/">
-  <link rel="alternate" hreflang="en" href="https://aquabeacon.github.io/en/">
-  <link rel="alternate" hreflang="x-default" href="https://aquabeacon.github.io/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="AquaBeacon">
-  <meta property="og:locale" content="ja_JP">
-  <meta property="og:title" content="AquaBeacon | 光と音で、水中の位置を知る。">
-  <meta property="og:description" content="光と音を組み合わせた、水中位置推定・マッピングのオープンソースプロジェクト。OPEN SOURCE">
-  <meta property="og:url" content="https://aquabeacon.github.io/">
-  <meta property="og:image" content="https://aquabeacon.github.io/assets/social.png">
-  <meta property="og:image:alt" content="AquaBeacon のロゴ">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="stylesheet" href="assets/style.css">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aquabeacon.github.io/#organization","name":"AquaBeacon","alternateName":"アクアビーコン","url":"https://aquabeacon.github.io/","logo":"https://aquabeacon.github.io/assets/icon.png","sameAs":["https://github.com/AquaBeacon"]},{"@type":"WebSite","name":"AquaBeacon","url":"https://aquabeacon.github.io/","inLanguage":["ja","en"],"description":"光と音を組み合わせた水中位置推定・マッピングのオープンソースプロジェクト。","publisher":{"@id":"https://aquabeacon.github.io/#organization"}}]}
-  </script>
-</head>
-<body>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AquaBeacon | 光と音で、水中の位置を知る。</title><meta name="description" content="光と音を組み合わせる水中位置推定・マッピング。仕組み、研究結果、実機の設計、ソースコードと公開資料をまとめたAquaBeaconの公式OSSサイト。">
+<meta name="theme-color" content="#F9F8F5"><link rel="canonical" href="https://aquabeacon.github.io/"><link rel="alternate" hreflang="ja" href="https://aquabeacon.github.io/"><link rel="alternate" hreflang="en" href="https://aquabeacon.github.io/en/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="AquaBeacon"><meta property="og:title" content="AquaBeacon | 光と音で、水中の位置を知る。"><meta property="og:description" content="光と音を組み合わせる水中位置推定・マッピング。仕組み、研究結果、実機の設計、ソースコードと公開資料をまとめたAquaBeaconの公式OSSサイト。"><meta property="og:url" content="https://aquabeacon.github.io/"><meta property="og:image" content="https://aquabeacon.github.io/assets/social.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/style.css?v=4"><link rel="stylesheet" href="/assets/research.css?v=4"><script src="/assets/site.js?v=4" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "AquaBeacon | 光と音で、水中の位置を知る。", "description": "光と音を組み合わせる水中位置推定・マッピング。仕組み、研究結果、実機の設計、ソースコードと公開資料をまとめたAquaBeaconの公式OSSサイト。", "url": "https://aquabeacon.github.io/", "inLanguage": "ja", "isPartOf": {"@type": "WebSite", "name": "AquaBeacon", "url": "https://aquabeacon.github.io/"}}</script>
+</head><body class="site-page">
 <a class="skip" href="#main">本文へ移動</a>
-<header class="wrap">
-  <a class="brand" href="./" aria-label="AquaBeacon ホーム"><img src="assets/icon.png" alt="" width="44" height="44">AquaBeacon</a>
-  <nav class="research-nav" aria-label="メインナビゲーション"><a href="/research/">研究・結果</a>　<a href="/map/">軌跡とマップ</a></nav>
-  <nav class="languages" aria-label="言語切り替え"><a href="/" lang="ja" hreflang="ja" aria-current="page">日本語</a><span aria-hidden="true">/</span><a href="/en/" lang="en" hreflang="en">English</a></nav>
-</header>
-<main id="main" class="wrap">
-  <section class="hero" aria-labelledby="headline">
-    <div>
-      <p class="eyebrow" lang="en">OPEN SOURCE / UNDERWATER POSITIONING</p>
-      <h1 id="headline"><span>光と音で、</span><span>水中の位置を知る。</span></h1>
-      <p class="intro">AquaBeacon（アクアビーコン）は、光と音を組み合わせて、水中の位置推定・マッピングを目指すオープンソースプロジェクトです。</p>
-      <a class="button" href="/map/">親機・子機の軌跡と地図を見る →</a>
-      <p class="intro" style="margin-top:1rem;font-size:.9rem">7区間の記録を、時刻とともにたどる。<a href="https://github.com/AquaBeacon">ソース・設計をGitHubで見る ↗</a></p>
-    </div>
-    <figure>
-      <svg class="diagram" viewBox="0 0 480 410" role="img" aria-labelledby="diagram-title diagram-desc">
-        <title id="diagram-title">水上と水中を、光と音でつなぐ</title>
-        <desc id="diagram-desc">水上の親機と水中の子機の間で、光から方向、音から距離を得る構想の模式図です。</desc>
-        <path class="water" d="M0 110 Q60 100 120 110 T240 110 T360 110 T480 110 V410 H0Z"/>
-        <path class="line" d="M0 110 Q60 100 120 110 T240 110 T360 110 T480 110 M0 210H480 M0 310H480 M80 130V390 M180 130V390 M280 130V390 M380 130V390"/>
-        <path class="light" d="M150 104L265 345L380 275Z"/>
-        <path class="signal" d="M150 104L320 310" stroke-dasharray="5 7"/>
-        <path class="signal" d="M115 166Q154 193 202 168 M92 208Q162 257 237 212 M70 250Q170 321 272 254"/>
-        <rect class="node" x="123" y="91" width="54" height="17" rx="5"/>
-        <path class="signal" d="M150 91V64M137 70Q150 56 163 70"/>
-        <circle class="node" cx="320" cy="310" r="9"/>
-        <circle class="signal" cx="320" cy="310" r="22"/>
-        <text x="192" y="82">SURFACE</text><text x="28" y="360">SOUND / DISTANCE</text><text x="267" y="183">LIGHT / DIRECTION</text><text x="278" y="366">UNDERWATER</text>
-      </svg>
-      <figcaption>システムの概念図</figcaption>
-    </figure>
-  </section>
-  <section class="about" id="about" aria-labelledby="about-title">
-    <h2 id="about-title">水中を測る技術を、<br>ひらいていく。</h2>
-    <div><p>水上の親機と水中の子機をつなぎ、音で距離を、光で方向を捉える。AquaBeaconは、この仕組みを使って藻場などの水中環境で位置を推定し、マッピングにつなげることを目指しています。</p><p>ソフトウェア、ハードウェア設計、検証に関するドキュメントを公開し、開発を続けています。</p></div>
-  </section>
-  <section class="soon" aria-labelledby="research-title"><h2 id="research-title">親機・子機・水中の形を、同じ画面で。</h2><p>親子の軌跡と5区間の写真付き地図を3Dで表示。時刻再生、上面・側面表示、地図の拡大、元画像の確認ができます。欠測と校正条件も併記しています。<a href="/map/">軌跡とマップを開く →</a><br>静止評価の条件と数値は<a href="/research/">研究・結果の入口</a>から確認できます。</p></section>
-  <section class="soon" aria-labelledby="soon-title"><h2 id="soon-title" lang="en">OPEN SOURCE</h2><p>設計資料、ソースコード、開発手順は<a href="https://github.com/AquaBeacon/workspace-tools">公開リポジトリ一覧</a>から参照できます。</p></section>
+<header class="site-header"><div class="header-inner"><a class="brand" href="/" aria-label="AquaBeacon ホーム">AquaBeacon<span class="brand-mark" aria-hidden="true">↗</span></a><nav class="desktop-nav" aria-label="メインナビゲーション"><a href="/" aria-current="page">概要</a><a href="/research/methods/">仕組み</a><a href="/research/">研究・結果</a><a href="/build/">つくる・使う</a><a href="/resources/">公開資料</a><a href="/map/">軌跡とマップ</a></nav><div class="header-tools"><a href="/en/" lang="en" hreflang="en">EN</a><button class="theme-toggle" type="button" aria-label="配色を切り替える" title="明るい配色・暗い配色を切り替え" hidden><span aria-hidden="true">◐</span></button><details class="mobile-menu"><summary>メニュー <span aria-hidden="true">＋</span></summary><nav aria-label="モバイルナビゲーション"><a href="/" aria-current="page">概要</a><a href="/research/methods/">仕組み</a><a href="/research/">研究・結果</a><a href="/build/">つくる・使う</a><a href="/resources/">公開資料</a><a href="/map/">軌跡とマップ</a></nav></details></div></div></header>
+<main id="main" class="wrap"><section class="hero" aria-labelledby="headline">
+ <div><h1 id="headline"><span>光と音で、</span><span>水中の位置を知る。</span></h1>
+ <p class="intro">AquaBeaconは、光で方向を、音で距離を測る水中位置推定のプロジェクトです。水上の親機と水中の子機を使い、撮影した景色を位置の分かる地図にすることを目指しています。</p>
+ <div class="button-row"><a class="button primary" href="/map/">軌跡とマップを操作する <span aria-hidden="true">↗</span></a><a class="text-link" href="/research/methods/">仕組みを知る <span aria-hidden="true">→</span></a></div>
+ <p class="hero-meta">設計・ソフトウェア・研究結果を公開しています。</p></div>
+ <figure class="hero-figure"><img src="/assets/device-harbor.webp" width="1200" height="1600" alt="港の岸壁に置かれたAquaBeaconの試作機。橙色のフレームに透明筐体、カメラ、ライトを取り付けている。" fetchpriority="high"><figcaption><span>実機の試作・水辺での準備</span><span>2026.09</span></figcaption></figure>
+</section>
+<div class="facts-strip" aria-label="公開中の内容"><div>南予での実験記録と、<br>開発に使う設計・コード。</div><div><strong>7</strong><span>区間の親機・子機の軌跡</span></div><div><strong>5</strong><span>区間の写真付き地図</span></div><div><strong>19</strong><span>公開リポジトリ</span></div></div>
+<section class="feature-section split" id="about" aria-labelledby="about-title">
+ <div class="overview-copy"><h2 id="about-title">水上の位置を基準に、<br>水中を測る。</h2><p>藻場などの水中環境を継続して調べるには、何が写っているかに加え、どこで撮影したかが必要です。水中でGNSSを直接使うことが難しいため、水上の親機を位置の基準にします。</p><p>親機のカメラで子機のライトを捉え、音響の到達時間から距離を求めます。両機の姿勢や深度も対応付け、波による親機の揺れを考慮して子機の位置を推定します。</p><a class="text-link" href="/research/methods/">観測から位置推定まで <span aria-hidden="true">→</span></a></div>
+ <div class="signal-flow"><div><strong>光</strong><p>親機のカメラで子機の光源を追跡し、方向を求める。</p></div><div><strong>音</strong><p>親子の時刻を対応させ、音の到達時間から距離を求める。</p></div><div><strong>姿勢</strong><p>IMUによる姿勢と各センサーの取付け位置を使い、同じ座標にそろえる。</p></div><div><strong>地図</strong><p>子機の撮影画像から形状を復元し、航法結果や深度を基に尺度と位置を与える。</p></div></div>
+</section>
+<section class="feature-section split" aria-labelledby="map-title">
+ <figure><a class="map-preview" href="/map/"><img src="/assets/map-preview.png" alt="11月1日区間3の写真付き水中マップを撮影方向から表示した3Dビューアー" width="1000" height="625" loading="lazy"><span class="preview-link">3Dマップを開く <span aria-hidden="true">↗</span></span></a><figcaption>南予・11月1日 区間3。後処理で得た地図を表示。尺度・配置は暫定です。</figcaption></figure>
+ <div class="feature-copy"><h2 id="map-title">動かして見る、<br>水中の記録。</h2><p>親機・子機の軌跡と写真付きの地図を、同じ3D空間で確認できます。指で回転し、ピンチで拡大。時刻を動かすと、そのときの推定位置と撮影画像を見比べられます。</p><p class="meta">地図は後処理の最終結果です。時刻再生は航法結果を対象とし、観測の欠測もそのまま示します。</p><a class="text-link" href="/map/">軌跡とマップを見る <span aria-hidden="true">→</span></a></div>
+</section>
+<section class="feature-section" aria-labelledby="research-title"><div class="section-heading"><h2 id="research-title">実験で分かったこと</h2><a class="text-link" href="/research/">研究・結果の一覧 →</a></div><p class="intro">数値は、測定条件と一緒に。現在公開しているのは、静止時の位置のばらつきと、2日分の写真付きマッピングの結果です。</p>
+ <div class="result-links"><article class="result-entry"><a href="/research/reports/20261101-static/">深度約16 mの静止評価 →</a><p class="result-number">0.1397 <small>m</small></p><p>姿勢補正後の3D RMSE。採用32点の区間平均まわりのばらつきであり、真値に対する誤差ではありません。</p></article><article class="result-entry"><a href="/research/reports/20261102-mapping/">2日分の写真付きマッピング →</a><p class="result-number">82,500 <small>点</small></p><p>5区間・230写真面を公開。尺度・配置は暫定で、日をまたぐ写真の接続と独立真値による精度は未検証です。</p></article></div>
+</section>
+<section class="feature-section split" aria-labelledby="open-title"><div><h2 id="open-title">設計を読む。<br>つくる。確かめる。</h2><p class="intro">回路や筐体から、ファームウェア、解析、シミュレーションまで。関心のある部分から開発資料へ進めます。</p><a class="text-link" href="/build/">つくる・使う →</a></div><ul class="link-list"><li><a href="/build/#hardware">回路・基板と配線</a><p>回路図、PCB、センサー・電源構成、コネクタ表。</p></li><li><a href="/build/#mechanical">筐体・機構と組立</a><p>親機・子機の組立モデル、印刷用部品、製造ツール。</p></li><li><a href="/build/#firmware">ファームウェアと計測</a><p>基板の動作確認、実験での記録、音響・姿勢・GNSSの試験。</p></li><li><a href="/build/#analysis">解析とシミュレーション</a><p>位置推定とマッピング、真値付きのモデル検証。</p></li><li><a href="/resources/">すべての公開資料</a><p>19リポジトリと設計仕様、研究レポート、公開データの索引。</p></li></ul></section>
+<section class="feature-section faq" aria-labelledby="faq-title"><h2 id="faq-title">よくある質問</h2><details><summary>いま、何ができていますか？</summary><p>記録した映像・センサー観測を後処理し、位置の推定と写真付きマップの閲覧ができます。リアルタイムの統合動作や、独立した真値に対する精度の実証は今後の課題です。<a href="/research/">研究・結果</a>に、確認できたことと残る課題をまとめています。</p></details><details><summary>スマートフォンからマップを見られますか？</summary><p>WebGLに対応したブラウザで閲覧できます。1本指で回転、2本指で拡大・移動し、上面・側面のボタンでも視点を切り替えられます。表示できない場合は<a href="/research/reports/20261102-mapping/">静止図のあるレポート</a>をご覧ください。</p></details><details><summary>公開されているデータは何ですか？</summary><p>選定した評価値・派生図・来歴と、表示用の親子軌跡、復元点群、写真面を公開しています。生動画・生ログ・地理原点の緯度経度は配信していません。<a href="/resources/#results">公開データと結果</a>から参照できます。</p></details><details><summary>設計やコードを使うには？</summary><p><a href="/build/">つくる・使う</a>から目的に合うリポジトリを選んでください。自作部分の多くはApache-2.0ですが、個別のライセンスや第三者素材の条件を確認してください。実験用統合ファームウェアはライセンス未宣言です。</p></details><details><summary>改善や開発に参加できますか？</summary><p>各リポジトリのIssue・Pull Requestで提案できます。対象の基板・コードの版、再現手順、期待する結果を添えてください。<a href="/resources/#contribute">参加方法と資料の入口</a>をまとめています。</p></details></section>
 </main>
-<footer class="wrap"><span>© 2026 AquaBeacon</span><a href="https://github.com/AquaBeacon">AquaBeacon on GitHub ↗</a><span>光と音から、水中へ。</span></footer>
-</body>
-</html>
+<footer class="site-footer"><div class="wrap"><div class="footer-top"><a class="brand" href="/">AquaBeacon</a><p>光と音で、水中の位置を知る。</p></div><nav class="footer-nav" aria-label="フッターナビゲーション"><a href="/" aria-current="page">概要</a><a href="/research/methods/">仕組み</a><a href="/research/">研究・結果</a><a href="/build/">つくる・使う</a><a href="/resources/">公開資料</a><a href="/map/">軌跡とマップ</a></nav><div class="footer-bottom"><span>© 2026 AquaBeacon</span><a href="https://github.com/AquaBeacon">GitHub ↗</a><a href="/resources/#license">ライセンス・出典</a><a href="/resources/#contribute">開発に参加する</a></div></div></footer>
+</body></html>

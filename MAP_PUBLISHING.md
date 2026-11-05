@@ -65,3 +65,9 @@ python -m http.server 8081 --bind 127.0.0.1 --directory .local/map-qa
 ```
 
 公開データ自体を使って375px・1280pxで確認する。`.local/map-qa/map/` のテストUIで全7区間・3グループ、切替中断、合成タッチ、描画中断を検証できる。実ドラッグ・ボタン・キーボードも確認する。`mobile.html` は375px iframe、`failure/` は存在しないデータによる失敗・再試行の検証。これらの補助UIはGit・配信対象外。スマホ実機と印刷したQRの読み取りは別途確認する。
+
+## 2026-11-06：サイト共通デザインの適用
+
+`content/map.html` を正本とし、`python tools/build_site.py` で `site/map/index.html` を生成する。共有ナビゲーションとPaper配色へ統一し、PCの地図・時間操作・右情報欄、既存IDとデータ形式を維持する。スマホは地図直下の再生を保持し、描画面に1本指回転・2本指拡大/移動の案内を表示する。描画とデータ処理のJavaScriptは変更しない。
+
+追加確認は `tools/verify_pages_browser.mjs`。375px・タッチ対応・DPR2でブラウザのtouchプロトコルを用い、回転・ピンチ・移動を実際に送信する。横向きも確認する。これはエミュレーションでありスマートフォン実機の動作確認ではない。

@@ -6,7 +6,7 @@ The [trajectory and mapping workspace](https://aquabeacon.github.io/map/) shows 
 
 A website introducing AquaBeacon, an open-source project in development for underwater positioning and mapping with light and sound.
 
-Software, hardware designs, and technical documentation are public. See the [17 repositories and development instructions](https://github.com/AquaBeacon/workspace-tools).
+Software, hardware designs, and technical documentation are public. See the [19 repositories and development instructions](https://github.com/AquaBeacon/workspace-tools).
 
 - Website: https://aquabeacon.github.io/en/
 - Organization: https://github.com/AquaBeacon
@@ -28,3 +28,7 @@ Repository: `AquaBeacon/aquabeacon.github.io`. Set Settings → Pages → Source
 ## Contributing / License
 
 Suggest improvements through issues or pull requests. Original project work is licensed under [Apache License 2.0](LICENSE). See [THIRD_PARTY.md](THIRD_PARTY.md) for third-party materials. AquaBeacon components follow the licenses in their respective repositories.
+
+## Page authoring
+
+The redesigned site has 11 static pages, with dedicated build and resources indexes covering all 19 public repositories. Edit `content/*.html`, run `python tools/build_site.py`, and verify with `python tools/build_site.py --check`. Only checked-in `site/` is served; no runtime build or external JavaScript is required. Fonts are self-hosted with OFL notices. See `DESIGN.md` and `PUBLICATION.md` for the design and verified publication state.

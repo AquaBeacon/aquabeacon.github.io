@@ -20,6 +20,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Verify static pages and public evidence
+        run: |
+          python tools/build_site.py --check
+          python tools/verify_site.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
